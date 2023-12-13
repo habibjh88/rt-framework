@@ -16,6 +16,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public $button_labels = [];
 
+		public $type = 'custom_heading';
+
 		/**
 		 * Constructor
 		 */
@@ -46,7 +48,18 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
             <div class='actions'>
                 <a class="button-secondary upload"><?php echo esc_html( $this->button_labels['add'] ); ?></a>
             </div>
-            <input class="wp-editor-area" id="images-input" type="hidden" <?php esc_url( $this->link() ); ?>>
+
+			<?php echo $this->value();
+            if($this->id == 'newsfit_gallery1') {
+	            error_log( print_r( $this, true ) . "\n\n", 3, __DIR__ . '/log.txt' );
+            }
+            ?>
+
+            <input class="wp-editor-area"
+                   name="<?php echo esc_attr($this->id); ?>"
+                   id="<?php echo esc_attr( $this->id ); ?>"
+                   type="text" <?php $this->link(); ?>
+                   value="<?php echo esc_attr( $this->value() ); ?>">
 			<?php
 		}
 

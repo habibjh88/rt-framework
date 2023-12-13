@@ -19,6 +19,7 @@ class Customize {
 	private static $panels = [];
 	private static $sections = [];
 	private static $fields = [];
+	private static $fields_group = [];
 	protected $defaults;
 	protected static $instance = null;
 
@@ -106,6 +107,7 @@ class Customize {
 	 */
 	public function add_customizer_controls( $wp_customize ): void {
 		FieldManager::add_customizer_fields( $wp_customize, self::$fields );
+		FieldManager::add_customizer_fields_group( $wp_customize, self::$fields_group );
 	}
 
 	/**
@@ -139,6 +141,18 @@ class Customize {
 	 */
 	public static function add_control( $field ): void {
 		self::$fields[] = $field;
+	}
+
+
+	/**
+	 * Add Controls
+	 *
+	 * @param $field
+	 *
+	 * @return void
+	 */
+	public static function add_controls( $section, $fields ): void {
+		self::$fields_group[ $section ] = $fields;
 	}
 }
 

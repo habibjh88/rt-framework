@@ -5,6 +5,7 @@ namespace RTFramework;
 use RTFramework\CustomControl\Customizer_Alfa_Color;
 use RTFramework\CustomControl\Customizer_Custom_Heading;
 use RTFramework\CustomControl\Customizer_Dropdown_Select2_Control;
+use RTFramework\CustomControl\Customizer_Gallery_Control;
 use RTFramework\CustomControl\Customizer_Image_Radio_Control;
 use RTFramework\CustomControl\Customizer_Sortable_Repeater_Control;
 use RTFramework\CustomControl\Customizer_Switch_Control;
@@ -21,6 +22,28 @@ class FieldManager {
 		foreach ( $fields as $field ) {
 			if ( method_exists( __CLASS__, $field['type'] ) ) {
 				self::{$field['type']}( $wp_customize, $field );
+			}
+		}
+	}
+
+	/**
+	 * Add Customizer Fields group
+	 *
+	 * @param $wp_customize
+	 * @param $fields_group
+	 *
+	 * @return void
+	 */
+	public static function add_customizer_fields_group( $wp_customize, $fields_group ) {
+		if ( empty( $fields_group ) ) {
+			return;
+		}
+		foreach ( $fields_group as $section_id => $fields ) {
+			foreach ( $fields as $field ) {
+				$field['section'] = $section_id;
+				if ( method_exists( __CLASS__, $field['type'] ) ) {
+					self::{$field['type']}( $wp_customize, $field );
+				}
 			}
 		}
 	}
@@ -456,7 +479,7 @@ class FieldManager {
 	}
 
 	/**
-	 * select2 Control
+	 * Repeater Control
 	 *
 	 * @param $wp_customize
 	 * @param $field
@@ -470,11 +493,36 @@ class FieldManager {
 			'sanitize_callback' => 'rttheme_switch_sanitization',
 		] );
 		$wp_customize->add_control( new Customizer_Sortable_Repeater_Control( $wp_customize, $field['id'], [
-			'label'       => $field['label'] ?? '',
-			'description' => $field['description'] ?? '',
-			'section'     => $field['section'] ?? '',
+			'label'         => $field['label'] ?? '',
+			'description'   => $field['description'] ?? '',
+			'section'       => $field['section'] ?? '',
 			'button_labels' => array(
 				'add' => __( 'Add Row', 'skyrocket' ),
+			)
+		] ) );
+
+	}
+
+	/**
+	 * Gallery Control
+	 *
+	 * @param $wp_customize
+	 * @param $field
+	 *
+	 * @return void
+	 */
+	public static function gallery( $wp_customize, $field ): void {
+		$wp_customize->add_setting( $field['id'], [
+			'default'           => $field['default'] ?? '',
+			'transport'         => $field['transport'] ?? 'refresh',
+			'sanitize_callback' => 'rttheme_switch_sanitization',
+		] );
+		$wp_customize->add_control( new Customizer_Gallery_Control( $wp_customize, $field['id'], [
+			'label'         => $field['label'] ?? '',
+			'description'   => $field['description'] ?? '',
+			'section'       => $field['section'] ?? '',
+			'button_labels' => array(
+				'add' => __( 'Add Gallery', 'skyrocket' ),
 			)
 		] ) );
 

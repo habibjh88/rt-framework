@@ -110,6 +110,9 @@
     right: 0;
 }
 
+.wp-customizer .select2-container {
+    max-width: 100% !important;
+}
 .wp-customizer .select2-container .select2-dropdown {
     z-index: 900000;
 }
@@ -1054,3 +1057,4 @@ input[type="number"]:focus {
         height: 33px;
     }
 }
+
