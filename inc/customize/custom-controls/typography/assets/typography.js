@@ -76,12 +76,16 @@ jQuery(document).ready(function ($) {
         // Update the font category based on the selected font
         $(this).parent().parent().find('.google-fonts-category').val(bodyfontcontrol.rtthemefontslist[index].category);
 
-        rtthemeGetAllSelects($(this).parent().parent());
+        rtthemeGetAllSelects($(this).closest('.google_fonts_select_control'));
     });
 
     $('.google_fonts_select_control select').on('change', function () {
-        rtthemeGetAllSelects($(this).parent().parent());
+        rtthemeGetAllSelects($(this).closest('.google_fonts_select_control'));
     });
+
+    $('.google_fonts_select_control input[type=number]').on('input', function (){
+        rtthemeGetAllSelects($(this).closest('.google_fonts_select_control'));
+    })
 
     function rtthemeGetAllSelects($element) {
         var selectedFont = {
@@ -89,8 +93,12 @@ jQuery(document).ready(function ($) {
             regularweight: $element.find('.google-fonts-regularweight-style').val(),
             italicweight: $element.find('.google-fonts-italicweight-style').val(),
             boldweight: $element.find('.google-fonts-boldweight-style').val(),
-            category: $element.find('.google-fonts-category').val()
+            category: $element.find('.google-fonts-category').val(),
+            size: $element.find('.google-font-size').val(),
+            lineheight: $element.find('.google-font-line-height').val(),
         };
+
+        console.log(selectedFont)
 
         // Important! Make sure to trigger change event so Customizer knows it has to save the field
         $element.find('.customize-control-google-font-selection').val(JSON.stringify(selectedFont)).trigger('change');

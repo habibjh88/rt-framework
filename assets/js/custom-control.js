@@ -2,6 +2,7 @@
 
     $(document).ready(function () {
 
+
         /* === Checkbox Multiple Control === */
 
         $('.customize-control-checkbox-multiple input[type="checkbox"]').on('change', function () {

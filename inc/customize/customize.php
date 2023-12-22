@@ -54,8 +54,9 @@ class Customize {
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/select2-control.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/alfa-color.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/repeater-control.php';
-		//require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-controls.php';
-		//require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-customizer.php';
+		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-controls.php';
+//		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/test.php';
+//		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-customizer.php';
 	}
 
 	/**
@@ -106,8 +107,7 @@ class Customize {
 	 * @return void
 	 */
 	public function add_customizer_controls( $wp_customize ): void {
-		FieldManager::add_customizer_fields( $wp_customize, self::$fields );
-		FieldManager::add_customizer_fields_group( $wp_customize, self::$fields_group );
+		new FieldManager( $wp_customize, self::$fields, self::$fields_group );
 	}
 
 	/**

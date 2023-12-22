@@ -49,11 +49,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
                 <a class="button-secondary upload"><?php echo esc_html( $this->button_labels['add'] ); ?></a>
             </div>
 
-			<?php echo $this->value();
-            if($this->id == 'newsfit_gallery1') {
-	            error_log( print_r( $this, true ) . "\n\n", 3, __DIR__ . '/log.txt' );
-            }
-            ?>
+			<?php //echo $this->value(); ?>
 
             <input class="wp-editor-area"
                    name="<?php echo esc_attr($this->id); ?>"

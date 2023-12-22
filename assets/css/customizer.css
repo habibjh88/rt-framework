@@ -24,6 +24,7 @@
     font-weight: 500;
     text-align: center;
 }
+
 #customize-theme-controls .customize-pane-child.accordion-section-content {
     background: #fff;
 }
@@ -51,6 +52,7 @@
     right: 0;
     border-radius: 4px;
 }
+
 .customize-control.customize-control-number label {
     max-width: calc(100% - 100px);
 }
@@ -113,6 +115,7 @@
 .wp-customizer .select2-container {
     max-width: 100% !important;
 }
+
 .wp-customizer .select2-container .select2-dropdown {
     z-index: 900000;
 }
@@ -135,7 +138,7 @@ input[type="email"],
 input[type="date"] {
     background: #fcfcff;
     position: relative;
-    border-radius: 0;
+    border-radius: 4px;
     border: 1px solid #aaa;
     height: 32px;
     line-height: 27px;
@@ -845,14 +848,51 @@ input[type="number"]:focus {
 /* ==========================================================================
    Google Fonts Select
    ========================================================================== */
-.google_fonts_select_control .google-fonts,
-.google_fonts_select_control .weight-style {
+.google_fonts_select_control .google-fonts, .google_fonts_select_control .weight-style {
     margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
 }
 
-/* ==========================================================================
-   Upsell Section
-   ========================================================================== */
+.google_fonts_select_control .google-font-style::-webkit-inner-spin-button,
+.google_fonts_select_control .google-font-style::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.google_fonts_select_control .google-font-style-wrap {
+    position: relative;
+    flex: 1;
+}
+.google_fonts_select_control .google-font-style-wrap:first-child {
+    flex: 1.5;
+}
+
+.google_fonts_select_control .google-font-style + span {
+    display: inline-block;
+    position: absolute;
+    z-index: 9;
+    background: #ececed;
+    padding: 0 5px;
+    height: 30px;
+    box-sizing: border-box;
+    bottom: 1px;
+    line-height: 28px;
+    border-radius: 0 3px 3px 0;
+    right: 1px;
+    border-left: 1px solid #ddd;
+    pointer-events: none;
+}
+
+.google_fonts_select_control .select2-container {
+    width: 100% !important;
+}
+
+
+/*==========================================================================
+Upsell Section
+==========================================================================*/
+
 #customize-theme-controls #accordion-section-upsell_section {
     display: block !important;
 }

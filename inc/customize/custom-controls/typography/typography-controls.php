@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-namespace radiustheme\HomListi\Customizer\Typography;
+namespace RTFramework\CustomControl\Typography;
 
 use WP_Customize_Control;
 
@@ -40,19 +40,11 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		private $fontCount = 'all';
 		/**
-		 * The font list sort order. Either 'alpha' or 'popular'. Default = 'alpha'
-		 */
-		private $fontOrderBy = 'alpha';
-
-		/**
 		 * Get our list of fonts from the json file
 		 */
 		public function __construct( $manager, $id, $args = [], $options = [] ) {
 			parent::__construct( $manager, $id, $args );
 			// Get the font sort order
-			if ( isset( $this->input_attrs['orderby'] ) && strtolower( $this->input_attrs['orderby'] ) === 'popular' ) {
-				$this->fontOrderBy = 'popular';
-			}
 			// Get the list of Google fonts
 			if ( isset( $this->input_attrs['font_count'] ) ) {
 				if ( 'all' != strtolower( $this->input_attrs['font_count'] ) ) {
@@ -73,8 +65,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function enqueue() {
 			wp_enqueue_script( 'rttheme-select2-js', RT_FRAMEWORK_DIR_URL . '/assets/js/select2.min.js', [ 'jquery' ], '4.0.6', true );
-			wp_enqueue_script( 'rttheme-typography-controls-js', RT_FRAMEWORK_DIR_URL . 'inc/customizer/typography/assets/typography.js', [ 'rttheme-select2-js' ], '1.2', true );
-			wp_enqueue_style( 'rttheme-typography-controls-css', RT_FRAMEWORK_DIR_URL . 'inc/customizer/typography/assets/typography.css', [], '1.1', 'all' );
+			wp_enqueue_script( 'rttheme-typography-controls-js', RT_FRAMEWORK_DIR_URL . '/inc/customize/custom-controls/typography/assets/typography.js', [ 'rttheme-select2-js' ], '1.2', true );
 			wp_enqueue_style( 'rttheme-select2-css', RT_FRAMEWORK_DIR_URL . '/assets/css/select2.min.css', [], '4.0.6', 'all' );
 		}
 
@@ -128,15 +119,30 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 							?>
                         </select>
                     </div>
-                    <div class="customize-control-description">Select weight &amp; style for regular text</div>
+
                     <div class="weight-style">
-                        <select class="google-fonts-regularweight-style">
-							<?php
-							foreach ( $this->fontList[ $this->fontListIndex ]->variants as $key => $value ) {
-								echo '<option value="' . $value . '" ' . selected( $this->fontValues->regularweight, $value, false ) . '>' . $value . '</option>';
-							}
-							?>
-                        </select>
+                        <div class="google-font-style-wrap">
+                            <div class="customize-control-description">Font weight</div>
+                            <select class="google-fonts-regularweight-style">
+								<?php
+								foreach ( $this->fontList[ $this->fontListIndex ]->variants as $key => $value ) {
+									echo '<option value="' . $value . '" ' . selected( $this->fontValues->regularweight, $value, false ) . '>' . $value . '</option>';
+								}
+								?>
+                            </select>
+                        </div>
+
+                        <div class="google-font-style-wrap">
+                            <div class="customize-control-description">Font Size</div>
+                            <input type="number" class="google-font-size google-font-style" value="<?php echo $this->fontValues->size ?>">
+                            <span>px</span>
+                        </div>
+
+                        <div class="google-font-style-wrap">
+                            <div class="customize-control-description">Font Height</div>
+                            <input type="number" class="google-font-line-height google-font-style" value="<?php echo $this->fontValues->lineheight ?>">
+                            <span>px</span>
+                        </div>
                     </div>
                 </div>
 				<?php
@@ -167,11 +173,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$body_content = "";
 
 			if ( $_font_path === 'url' ) {
-				$fontFile = RT_FRAMEWORK_DIR_URL . 'inc/customizer/typography/google-fonts/google-fonts-alphabetical.json';
-				if ( $this->fontOrderBy === 'popular' ) {
-					$fontFile = RT_FRAMEWORK_DIR_URL . 'inc/customizer/typography/google-fonts/google-fonts-popularity.json';
-				}
-
+                $fontFile = RT_FRAMEWORK_DIR_URL . '/inc/customize/custom-controls/typography/google-fonts/google-fonts-popularity.json';
 				$request = wp_remote_get( $fontFile );
 				if ( is_wp_error( $request ) ) {
 					return "";
@@ -190,7 +192,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 			// TODO: IF wp_remote_get not working then below code should apply with code snippets
 			// add_filter('homlisti_customizer_fonts', function (){	return "path"});
-			// add_filter('homlisti_customizer_fonts_change', function (){ $fontFile = RT_FRAMEWORK_DIR_URL . 'inc/customizer/typography/google-fonts/google-fonts-alphabetical.json'; $get_content = file_get_contents($fontFile); return $get_content;});
+			// add_filter('homlisti_customizer_fonts_change', function (){ $fontFile = RT_FRAMEWORK_DIR_URL . '/inc/customize/custom-controls/typography/google-fonts/google-fonts-alphabetical.json'; $get_content = file_get_contents($fontFile); return $get_content;});
 		}
 	}
 }

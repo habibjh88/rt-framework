@@ -1,6 +1,11 @@
 jQuery( document ).ready(function($) {
 	"use strict";
 
+
+	$('.toggle-switch-label').on('click', function (){
+		$(this).prev().trigger('change');
+	})
+
 	/**
 	 * Sortable Repeater Custom Control
 	 *

@@ -21,7 +21,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 				}
 				?>
             </div>
-            <input class="wp-editor-area" id="<?php echo esc_attr( $this->id ); ?>" type="text" <?php $this->link(); ?> value="<?php echo esc_attr( $this->value() ); ?>">
+<!--            <input class="wp-editor-area" id="--><?php //echo esc_attr( $this->id ); ?><!--" type="text" --><?php //$this->link(); ?><!-- value="--><?php //echo esc_attr( $this->value() ); ?><!--">-->
 
 			<?php
 		}

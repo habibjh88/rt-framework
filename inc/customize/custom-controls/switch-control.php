@@ -16,7 +16,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
          * Enqueue our scripts and styles
          */
         public function enqueue() {
-            wp_enqueue_style('rttheme-custom-controls-css', trailingslashit(get_template_directory_uri()) . 'assets/css/customizer.css', array(), '1.0', 'all');
+	        wp_enqueue_style( 'rttheme-custom-controls-css', RT_FRAMEWORK_DIR_URL . '/assets/css/customizer.css', array(), '1.0', 'all' );
         }
 
         /**
