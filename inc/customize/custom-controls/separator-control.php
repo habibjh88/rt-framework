@@ -12,11 +12,9 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 		public $type = 'separator';
 
-		public function render_content() {
-			?>
+		public function render_content() { ?>
             <p>
-            <hr/>
-            </p>
+            <hr/></p>
 			<?php
 		}
 

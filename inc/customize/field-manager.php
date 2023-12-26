@@ -9,6 +9,7 @@ use RTFramework\CustomControl\Customizer_Dropdown_Select2_Control;
 use RTFramework\CustomControl\Customizer_Gallery_Control;
 use RTFramework\CustomControl\Customizer_Image_Radio_Control;
 use RTFramework\CustomControl\Customizer_Sortable_Repeater_Control;
+use RTFramework\CustomControl\Customizer_Separator_Control;
 use RTFramework\CustomControl\Customizer_Switch_Control;
 use RTFramework\CustomControl\Customizer_Test;
 use RTFramework\CustomControl\Typography\Customizer_Google_Fonts_Controls;
@@ -138,13 +139,6 @@ class FieldManager {
 			'condition'       => 'condition should come ',
 		];
 
-
-		//$control_args = self::cehck_condition( $control_args, $field );
-
-		//$control_args['condition'] = $field['condition'];
-//		if ( ! empty( $field['condition'] ) ) {
-//		}
-
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( $field['id'], $control_args );
 	}
@@ -181,12 +175,13 @@ class FieldManager {
 		];
 		$control_args  = [
 			'label'           => $field['label'] ?? '',
+			'description'     => $field['description'] ?? '',
 			'section'         => $field['section'] ?? '',
 			'type'            => 'number',
 			'active_callback' => $field['callback'] ?? '',
 		];
-		$wp_customize->add_setting( 'header_btn_order', $settings_args );
-		$wp_customize->add_control( 'header_btn_order', $control_args );
+		$wp_customize->add_setting( $field['id'], $settings_args );
+		$wp_customize->add_control( $field['id'], $control_args );
 	}
 
 	/**
@@ -265,6 +260,7 @@ class FieldManager {
 	}
 
 	/**
+	 * Image
 	 *
 	 * @param $wp_customize
 	 * @param $field
@@ -507,6 +503,27 @@ class FieldManager {
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Switch_Control( $wp_customize, $field['id'], $control_args ) );
+
+	}
+
+	/**
+	 * separator Control
+	 *
+	 * @param $wp_customize
+	 * @param $field
+	 *
+	 * @return void
+	 */
+	public static function separator( $wp_customize, $field ): void {
+		$settings_args = [
+			'default'           => $field['default'] ?? '',
+			'sanitize_callback' => 'rttheme_switch_sanitization',
+		];
+		$control_args  = [
+			'section' => $field['section'] ?? ''
+		];
+		$wp_customize->add_setting( $field['id'], $settings_args );
+		$wp_customize->add_control( new Customizer_Separator_Control( $wp_customize, $field['id'], $control_args ) );
 
 	}
 
