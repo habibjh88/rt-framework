@@ -132,7 +132,7 @@ class FieldManager {
 		];
 		$control_args  = [
 			'label'           => $field['label'] ?? '',
-			'description'     => 'a;lsdkjf a;lskjdf ;alskjdf; lasjdfl',
+			'description'     => $field['description'] ?? '',
 			'section'         => $field['section'] ?? '',
 			'type'            => 'text',
 			'active_callback' => $field['callback'] ?? '',

@@ -13,6 +13,7 @@
 .customize-control-title {
     margin-bottom: 6px;
     color: #212121;
+    line-height: 1.2;
 }
 
 .customize-control-heading {
@@ -30,7 +31,7 @@
 }
 
 .customize-control {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column !important;
 }
