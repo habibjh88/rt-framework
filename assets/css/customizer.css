@@ -28,6 +28,7 @@
 
 #customize-theme-controls .customize-pane-child.accordion-section-content {
     background: #fff;
+    height: 100%;
 }
 
 .customize-control {
@@ -679,26 +680,88 @@ input[type="number"]:focus {
 /* ==========================================================================
    Alpha Color Picker
    ========================================================================== */
-.customize-control-alpha-color .wp-picker-container .iris-picker {
+.customize-control .wp-picker-container .iris-picker {
     border-bottom: none;
 }
 
-.customize-control-alpha-color .wp-picker-container {
-    max-width: 257px;
+.customize-control .wp-picker-container {
+    position: relative;
 }
 
-.customize-control-alpha-color .wp-picker-open + .wp-picker-input-wrap {
+.customize-control .wp-picker-container .wp-color-result.button {
+    float: right;
+    border: 1px solid #CCC;
+}
+
+.customize-control .wp-picker-container .wp-picker-holder,
+.customize-control .wp-picker-container .iris-picker {
+    width: 100% !important;
+    background: #ededed;
+}
+
+.customize-control-alpha-color .wp-picker-container .wp-picker-holder {
+    max-height: 240px;
+    overflow: hidden;
+}
+
+.customize-control .wp-picker-container .iris-picker .iris-square,
+.customize-control-alpha-color .wp-picker-container .iris-picker .iris-square {
+    width: calc(100% - 45px) !important;
+    margin-right: 0;
+    position: relative;
+}
+
+.customize-control-alpha-color .wp-picker-container .iris-picker .iris-square {
+    height: 146px !important;
+}
+
+.customize-color-control .wp-picker-container .iris-picker .iris-square {
+    height: 176px !important;
+}
+
+.iris-border .iris-palette-container {
+    display: flex;
+}
+
+.iris-border .iris-palette-container a {
+    flex: 1;
+}
+
+.customize-control .wp-picker-container .iris-border .iris-palette-container {
+    width: calc(100% - 65px);
+}
+
+.customize-control-alpha-color .wp-picker-container .iris-border .iris-palette-container {
+    bottom: 44px;
+}
+
+.customize-control .wp-picker-container .iris-picker .iris-strip {
+    float: right;
+}
+
+.customize-control .wp-picker-open + .wp-picker-input-wrap {
     width: 100%;
+    position: relative;
 }
 
-.customize-control-alpha-color .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
+.customize-control .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
     float: left;
     width: 195px;
 }
 
-.customize-control-alpha-color .wp-picker-input-wrap .button {
-    margin-left: 0;
-    float: right;
+.customize-control .wp-picker-input-wrap .button.wp-picker-clear,
+.customize-control .wp-picker-input-wrap .button {
+    position: absolute;
+    top: 11px;
+    right: 10px;
+    background: #f6f7f7;
+    color: #000;
+    height: 30px;
+    border: none;
+    padding: 0 20px !important;
+    width: auto;
+    border-radius: 0 3px 3px 0;
+    border-left: 1px solid #CCC;
 }
 
 .wp-picker-container .wp-picker-open ~ .wp-picker-holder .alpha-color-picker-container {
@@ -790,34 +853,18 @@ input[type="number"]:focus {
     margin-top: -24px;
 }
 
-@media only screen and (max-width: 782px) {
-    .customize-control-alpha-color .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
-        width: 184px;
-    }
-}
-
-@media only screen and (max-width: 640px) {
-    .customize-control-alpha-color .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
-        width: 172px;
-        height: 33px;
-    }
-}
-
 /* ==========================================================================
    Alpha Color Picker & Standard Color Picker
    ========================================================================== */
 .customize-control-color .wp-color-result,
-.customize-control-alpha-color .wp-color-result {
+.customize-control .wp-color-result {
     box-shadow: none;
 }
 
 .customize-control-color .wp-color-result .wp-color-result-text,
-.customize-control-alpha-color .wp-color-result .wp-color-result-text {
+.customize-control .wp-color-result .wp-color-result-text {
     border-left: none;
-}
-
-.wp-picker-holder .iris-picker .iris-palette {
-    box-shadow: none;
+    border-left: 1px solid #ddd;
 }
 
 .wp-picker-container .iris-picker,
@@ -827,7 +874,9 @@ input[type="number"]:focus {
 }
 
 .wp-picker-container .alpha-color-picker-container {
-    width: 233px;
+    width: calc(100% - 66px);
+    top: -37px;
+    background: none;
 }
 
 /* ==========================================================================
@@ -865,6 +914,7 @@ input[type="number"]:focus {
     position: relative;
     flex: 1;
 }
+
 .google_fonts_select_control .google-font-style-wrap:first-child {
     flex: 1.5;
 }
@@ -975,27 +1025,63 @@ Upsell Section
 /* ==========================================================================
    Alpha Color Picker
    ========================================================================== */
-.customize-control-alpha-color .wp-picker-container .iris-picker {
+.customize-control .wp-picker-container .iris-picker {
     border-bottom: none;
 }
 
-.customize-control-alpha-color .wp-picker-container {
-    max-width: 257px;
+.customize-control .wp-picker-container {
+    width: 100%;
+    max-width: 100%;
+    margin-top: -27px;
 }
 
-.customize-control-alpha-color .wp-picker-open + .wp-picker-input-wrap {
+.customize-control .wp-picker-input-wrap label,
+.customize-control .wp-picker-open + .wp-picker-input-wrap {
+    width: 100%;
+    background: #ededed;
+    padding-top: 5px;
+    margin-bottom: -5px;
+}
+
+.customize-control-color .wp-picker-input-wrap input[type=text].wp-color-picker,
+.customize-control .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
+    width: calc(100% - 19px);
+    height: 32px !important;
+    margin-left: 11px;
+}
+
+.customize-control-color .wp-picker-input-wrap input[type=text].wp-color-picker {
+    margin-bottom: 10px;
+}
+
+.customize-control .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
+    margin-bottom: 4px;
+}
+
+.customize-control-color .wp-picker-container {
     width: 100%;
 }
 
-.customize-control-alpha-color .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
-    float: left;
-    width: 195px;
+.customize-control-color .customize-control-content {
+    margin-top: -6px;
 }
 
-.customize-control-alpha-color .wp-picker-input-wrap .button {
-    margin-left: 0;
+.customize-control-color .wp-picker-container .wp-color-result.button {
     float: right;
 }
+
+.customize-control-color .wp-picker-input-wrap label,
+.customize-control-color .wp-picker-open + .wp-picker-input-wrap {
+    width: 100%;
+}
+
+.customize-control-color .wp-picker-open + .wp-picker-input-wrap {
+    position: relative;
+    background: #ededed;
+    margin-bottom: -10px;
+    padding-top: 5px;
+}
+
 
 .wp-picker-container .wp-picker-open ~ .wp-picker-holder .alpha-color-picker-container {
     display: block;
@@ -1028,7 +1114,6 @@ Upsell Section
     height: 24px;
     text-align: center;
     margin: 0 auto;
-    width: 88%;
     width: calc(100% - 28px);
 }
 
@@ -1087,15 +1172,33 @@ Upsell Section
 }
 
 @media only screen and (max-width: 782px) {
-    .customize-control-alpha-color .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
+    .customize-control .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
         width: 184px;
     }
 }
 
 @media only screen and (max-width: 640px) {
-    .customize-control-alpha-color .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
+    .customize-control .wp-picker-input-wrap input[type="text"].wp-color-picker.alpha-color-control {
         width: 172px;
         height: 33px;
     }
 }
 
+#customize-control-custom_logo,
+#accordion-section-header_image,
+#accordion-section-background_image,
+#accordion-section-colors {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    text-indent: -999999px !important;
+}
+
+.customize-section-description-container {
+    margin-bottom: 20px;
+}
+
+[id*='rt_color_separator']{
+    margin-top: -15px !important;
+}

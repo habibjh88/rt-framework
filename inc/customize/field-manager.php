@@ -31,7 +31,6 @@ class FieldManager {
 
 
 	public static function customizer_switch_select_control_script() {
-		wp_enqueue_style( 'test-css', RT_FRAMEWORK_DIR_URL . '/assets/css/test.css', [], '1.0', 'all' );
 		wp_enqueue_script( 'newsfit-customizer-condition', RT_FRAMEWORK_DIR_URL . '/assets/js/customizer-condition.js', [ 'jquery', 'customize-controls' ], '1.0', true );
 		wp_localize_script( 'newsfit-customizer-condition', 'rtCustomizeObj', self::$conditions );
 	}
