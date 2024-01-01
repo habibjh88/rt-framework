@@ -44,7 +44,8 @@
 .customize-control.customize-control-number {
     position: relative;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    min-height: 33px;
 }
 
 .customize-control.customize-control-number input {
@@ -56,7 +57,8 @@
 }
 
 .customize-control.customize-control-number label {
-    max-width: calc(100% - 100px);
+    max-width: calc(100% - 84px);
+    margin: 0;
 }
 
 .customize-control.customize-control-number input[type=number]::-webkit-inner-spin-button,
@@ -219,11 +221,11 @@ input[type="number"]:focus {
 
 .text_radio_button_control .radio-button-label span:hover {
     background-color: rgba(255, 255, 255, .2);
-    color: #71d7f7;
+    color: #007BFF;
 }
 
 .text_radio_button_control .radio-button-label > input:checked + span {
-    background-color: #71d7f7;
+    background-color: #007BFF;
     color: #fff;
 }
 
@@ -244,7 +246,7 @@ input[type="number"]:focus {
 }
 
 .image_radio_button_control .radio-button-label > input:checked + img {
-    border: 2px solid #71d7f7;
+    border: 2px solid #007BFF;
 }
 
 /* ==========================================================================
@@ -260,7 +262,7 @@ input[type="number"]:focus {
 }
 
 .image_checkbox_control .checkbox-label > input:checked + img {
-    border: 2px solid #71d7f7;
+    border: 2px solid #007BFF;
 }
 
 /* ==========================================================================
@@ -290,7 +292,7 @@ input[type="number"]:focus {
 }
 
 .pill_checkbox_control .checkbox-label > input:checked + .sortable-pill-title {
-    background-color: #71d7f7;
+    background-color: #007BFF;
     color: #fff;
 }
 
@@ -322,7 +324,7 @@ input[type="number"]:focus {
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 1rem;
-    border: 1px dotted #71d7f7;
+    border: 1px dotted #007BFF;
     margin-bottom: 5px;
     height: 16px;
 }
@@ -450,8 +452,8 @@ input[type="number"]:focus {
 .slider-custom-control .ui-button,
 .slider-custom-control .ui-button.ui-state-disabled:hover,
 .slider-custom-control .ui-button.ui-state-disabled:active {
-    background: #71d7f7 none repeat scroll 0 0;
-    border: 1px solid #71d7f7;
+    background: #007BFF none repeat scroll 0 0;
+    border: 1px solid #007BFF;
     color: #454545;
     font-weight: normal;
 }
@@ -489,7 +491,7 @@ input[type="number"]:focus {
 
 .toggle-switch {
     position: relative;
-    width: 64px;
+    width: 50px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -504,7 +506,6 @@ input[type="number"]:focus {
     display: block;
     overflow: hidden;
     cursor: pointer;
-    border: 1px solid #95a5ab;
     border-radius: 20px;
     padding: 0;
     margin: 0;
@@ -540,29 +541,29 @@ input[type="number"]:focus {
 .toggle-switch-inner:before {
     content: "ON";
     padding-left: 8px;
-    background-color: #71d7f7;
+    background-color: #007BFF;
     color: #FFFFFF;
 }
 
 .toggle-switch-inner:after {
     content: "OFF";
     padding-right: 8px;
-    background-color: #FFFFFF;
-    color: #999999;
+    background-color: #95a5ab;
+    color: #FFFFFF;
     text-align: right;
 }
 
 .toggle-switch-switch {
     display: block;
     width: 16px;
+    height: 16px;
     margin: 3px;
-    background: #0a89b1;
+    background: #ffffff;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 38px;
-    border: 2px solid #0a89b1;
-    border-radius: 20px;
+    right: 28px;
+    border-radius: 50%;
     transition: all 0.3s ease-in 0s;
     transform: scale(.8);
 }
