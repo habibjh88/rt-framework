@@ -1203,3 +1203,21 @@ Upsell Section
 [id*='rt_color_separator']{
     margin-top: -15px !important;
 }
+.customize-control .rt-background-attributes {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+.customize-control .rt-background-attributes .bg-attr-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.customize-control .rt-background-attributes .bg-attr-item label {
+    flex: 250px;
+}
+
+.attachment-media-view-image .actions {
+    display: flex;
+    gap: 5px;
+}

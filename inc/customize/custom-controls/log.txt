@@ -1,0 +1,72 @@
+stdClass Object
+(
+    [font] => Open Sans
+    [regularweight] => normal
+    [size] => 16
+    [lineheight] => 26
+)
+
+
+stdClass Object
+(
+    [position] => center center
+    [attachment] => scroll
+    [repeat] => no-repeat
+    [size] => auto
+)
+
+
+stdClass Object
+(
+    [position] => center center
+    [attachment] => scroll
+    [repeat] => no-repeat
+    [size] => auto
+)
+
+
+stdClass Object
+(
+    [position] => center center
+    [attachment] => scroll
+    [repeat] => no-repeat
+    [size] => auto
+)
+
+
+stdClass Object
+(
+    [position] => 
+    [attachment] => 
+    [repeat] => 
+    [size] => 
+)
+
+
+stdClass Object
+(
+    [position] => center center
+    [attachment] => scroll
+    [repeat] => no-repeat
+    [size] => auto
+)
+
+
+stdClass Object
+(
+    [position] => 
+    [attachment] => 
+    [repeat] => 
+    [size] => 
+)
+
+
+stdClass Object
+(
+    [position] => center center
+    [attachment] => scroll
+    [repeat] => no-repeat
+    [size] => auto
+)
+
+

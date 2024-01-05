@@ -11,6 +11,7 @@ use RTFramework\CustomControl\Customizer_Image_Radio_Control;
 use RTFramework\CustomControl\Customizer_Sortable_Repeater_Control;
 use RTFramework\CustomControl\Customizer_Separator_Control;
 use RTFramework\CustomControl\Customizer_Switch_Control;
+use RTFramework\CustomControl\Customizer_BG_Attributes_Control;
 use RTFramework\CustomControl\Customizer_Test;
 use RTFramework\CustomControl\Typography\Customizer_Google_Fonts_Controls;
 
@@ -604,6 +605,29 @@ class FieldManager {
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Google_Fonts_Controls( $wp_customize, $field['id'], $control_args ) );
+	}
+
+
+	/**
+	 * Background attribute
+	 *
+	 * @param $wp_customize
+	 * @param $field
+	 *
+	 * @return void
+	 */
+	public static function bg_attribute( $wp_customize, $field ): void {
+		$settings_args = [
+			'default'           => $field['default'] ?? '',
+			'sanitize_callback' => 'rttheme_google_font_sanitization',
+		];
+		$control_args  = [
+			'label'       => $field['label'] ?? '',
+			'description' => $field['description'] ?? '',
+			'section'     => $field['section'] ?? '',
+		];
+		$wp_customize->add_setting( $field['id'], $settings_args );
+		$wp_customize->add_control( new Customizer_BG_Attributes_Control( $wp_customize, $field['id'], $control_args ) );
 	}
 
 }

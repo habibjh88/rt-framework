@@ -54,6 +54,7 @@ class Customize {
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/select2-control.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/alfa-color.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/repeater-control.php';
+		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/bg-attributes.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-controls.php';
 //		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/test.php';
 //		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-customizer.php';

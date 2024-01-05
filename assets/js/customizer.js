@@ -331,6 +331,25 @@ jQuery( document ).ready(function($) {
 		$element.find('.customize-control-google-font-selection').val(JSON.stringify(selectedFont)).trigger('change');
 	}
 
+	$('.rt-background-attributes select').on('change', function() {
+		console.log('changes')
+		rtthemeBGAttributeTrigger($(this).closest('.rt-background-attributes'));
+	});
+
+	function rtthemeBGAttributeTrigger($element) {
+		var selectedVal = {
+			position: $element.find('.rt-bg-position').val(),
+			attachment: $element.find('.rt-bg-attachment').val(),
+			repeat: $element.find('.rt-bg-repeat').val(),
+			size: $element.find('.rt-bg-size').val(),
+		};
+
+		console.log(selectedVal)
+
+		// Important! Make sure to trigger change event so Customizer knows it has to save the field
+		$element.find('.customize-control-background-atts').val(JSON.stringify(selectedVal)).trigger('change');
+	}
+
 	/**
 	 * TinyMCE Custom Control
 	 *
