@@ -27,7 +27,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function render_content() {
 			$current_value = json_decode( $this->value() );
-            error_log( print_r( $current_value, true ) . "\n\n" , 3, __DIR__ . '/log.txt' );
 			?>
             <div class="rt-background-attributes">
                 <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>

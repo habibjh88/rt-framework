@@ -12,6 +12,7 @@ use RTFramework\CustomControl\Customizer_Sortable_Repeater_Control;
 use RTFramework\CustomControl\Customizer_Separator_Control;
 use RTFramework\CustomControl\Customizer_Switch_Control;
 use RTFramework\CustomControl\Customizer_BG_Attributes_Control;
+use RTFramework\CustomControl\Customizer_TinyMCE_control;
 use RTFramework\CustomControl\Customizer_Test;
 use RTFramework\CustomControl\Typography\Customizer_Google_Fonts_Controls;
 
@@ -105,11 +106,14 @@ class FieldManager {
 			'sanitize_callback' => 'esc_html',
 		];
 		$control_args  = [
-			'label'    => $field['label'] ?? 'Heading Title',
+			'label'    => $field['label'] ?? '',
 			'settings' => $field['id'],
 			'section'  => $field['section'] ?? '',
 		];
-		$control_args  = self::cehck_condition( $control_args, $field );
+		if ( ! empty( $field['reset'] ) ) {
+			$control_args['reset'] = '1';
+		}
+		$control_args = self::cehck_condition( $control_args, $field );
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Custom_Heading( $wp_customize, $field['id'], $control_args ) );
 	}
@@ -503,6 +507,30 @@ class FieldManager {
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Switch_Control( $wp_customize, $field['id'], $control_args ) );
+
+	}
+
+	/**
+	 * tinymce Control
+	 *
+	 * @param $wp_customize
+	 * @param $field
+	 *
+	 * @return void
+	 */
+	public static function tinymce( $wp_customize, $field ): void {
+		$settings_args = [
+			'default'           => $field['default'] ?? '',
+			'transport'         => $field['transport'] ?? 'refresh',
+			'sanitize_callback' => 'wp_kses_post',
+		];
+		$control_args  = [
+			'label'       => $field['label'] ?? '',
+			'description' => $field['description'] ?? '',
+			'section'     => $field['section'] ?? '',
+		];
+		$wp_customize->add_setting( $field['id'], $settings_args );
+		$wp_customize->add_control( new Customizer_TinyMCE_control( $wp_customize, $field['id'], $control_args ) );
 
 	}
 

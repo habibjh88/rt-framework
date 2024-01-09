@@ -24,6 +24,7 @@
     font-size: 17px;
     font-weight: 500;
     text-align: center;
+    border-radius: 4px;
 }
 
 #customize-theme-controls .customize-pane-child.accordion-section-content {
@@ -685,6 +686,10 @@ input[type="number"]:focus {
     border-bottom: none;
 }
 
+.wp-picker-container.wp-picker-active {
+    padding-top: 5px;
+}
+
 .customize-control .wp-picker-container {
     position: relative;
 }
@@ -697,7 +702,8 @@ input[type="number"]:focus {
 .customize-control .wp-picker-container .wp-picker-holder,
 .customize-control .wp-picker-container .iris-picker {
     width: 100% !important;
-    background: #ededed;
+    background: #bfc7d7;
+    border-radius: 0 0 4px 4px;
 }
 
 .customize-control-alpha-color .wp-picker-container .wp-picker-holder {
@@ -1039,9 +1045,10 @@ Upsell Section
 .customize-control .wp-picker-input-wrap label,
 .customize-control .wp-picker-open + .wp-picker-input-wrap {
     width: 100%;
-    background: #ededed;
+    background: #bfc7d7;
     padding-top: 5px;
     margin-bottom: -5px;
+    border-radius: 4px 4px 0 0;
 }
 
 .customize-control-color .wp-picker-input-wrap input[type=text].wp-color-picker,
@@ -1078,7 +1085,7 @@ Upsell Section
 
 .customize-control-color .wp-picker-open + .wp-picker-input-wrap {
     position: relative;
-    background: #ededed;
+    background: #bfc7d7;
     margin-bottom: -10px;
     padding-top: 5px;
 }

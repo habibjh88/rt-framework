@@ -35,10 +35,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
             ?>
             <div class="tinymce-control">
                 <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-                <?php if( !empty( $this->description ) ) { ?>
-                    <span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
-                <?php } ?>
                 <textarea id="<?php echo esc_attr( $this->id ); ?>" class="customize-control-tinymce-editor" <?php $this->link(); ?>><?php echo esc_html( $this->value() ); ?></textarea>
+	            <?php if( !empty( $this->description ) ) { ?>
+                    <span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+	            <?php } ?>
             </div>
             <?php
         }
