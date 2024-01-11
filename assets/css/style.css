@@ -34,12 +34,21 @@
 	font-style: italic;
 	padding-top: 5px;
 }
+.rt_metabox_image {
+	overflow: hidden;
+}
 .rt_metabox_image .rt_upload_image,
 .rt_metabox_image .rt_remove_image,
 .rt_metabox_image .custom_preview_image {
 	display: inline-block;
 	margin: 0 10px 0 0;
 	vertical-align: middle;
+
+}
+.rt_metabox_image .rt_upload_image {
+	float: left;
+	background: #2271b1 !important;
+	color: #fff !important;
 }
 .rt_metabox_image .rt_upload_image:active {
 	vertical-align: middle;

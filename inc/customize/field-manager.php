@@ -504,6 +504,7 @@ class FieldManager {
 			'label'       => $field['label'] ?? '',
 			'description' => $field['description'] ?? '',
 			'section'     => $field['section'] ?? '',
+			'class'       => $field['class'] ?? '',
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Switch_Control( $wp_customize, $field['id'], $control_args ) );

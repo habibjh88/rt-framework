@@ -1228,3 +1228,6 @@ Upsell Section
     display: flex;
     gap: 5px;
 }
+.toggle-switch-control.extra-padding {
+    padding-left: 25px;
+}

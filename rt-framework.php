@@ -33,6 +33,7 @@ function rt_fw_load_files() {
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/rt-postmeta.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/rt-taxmeta.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/rt-widget-fields.php';
+	require_once RT_FRAMEWORK_BASE_DIR . 'inc/module/rt-widget-overwrite.php';
 	//customize
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/customize.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/field-manager.php';

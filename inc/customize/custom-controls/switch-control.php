@@ -12,6 +12,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
          */
         public $type = 'toogle_switch';
 
+        public $class = '';
+
         /**
          * Enqueue our scripts and styles
          */
@@ -24,7 +26,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
          */
         public function render_content() {
             ?>
-            <div class="toggle-switch-control">
+            <div class="toggle-switch-control <?php echo esc_attr($this->class); ?>">
                 <div class="toggle-switch">
                     <input type="checkbox" id="<?php echo esc_attr($this->id); ?>"
                            name="<?php echo esc_attr($this->id); ?>" class="toggle-switch-checkbox"
