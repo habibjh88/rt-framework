@@ -79,13 +79,13 @@ if ( ! class_exists( 'Rt_Widgets_Overwrite' ) ) {
 			$widgets_custom_cols = '';
 
 			if ( isset( $widget_opt[ $widget_num ]['widget_xl_cols'] ) || isset( $widget_opt[ $widget_num ]['widget_lg_cols'] ) ) {
-				if ( isset( $widget_opt[ $widget_num ]['widget_xl_cols'] ) ) {
+				if ( ! empty( $widget_opt[ $widget_num ]['widget_xl_cols'] ) ) {
 					$widgets_custom_cols .= $widget_opt[ $widget_num ]['widget_xl_cols'];
 				} else {
 					$widgets_custom_cols .= '';
 				}
 
-				if ( isset( $widget_opt[ $widget_num ]['widget_lg_cols'] ) ) {
+				if ( ! empty( $widget_opt[ $widget_num ]['widget_lg_cols'] ) ) {
 					$widget_before       = str_replace( 'col-lg-', 'collg', $widget_before );
 					$widgets_custom_cols .= ' ' . $widget_opt[ $widget_num ]['widget_lg_cols'];
 				} else {

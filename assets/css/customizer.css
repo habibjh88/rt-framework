@@ -1207,13 +1207,15 @@ Upsell Section
     margin-bottom: 20px;
 }
 
-[id*='rt_color_separator']{
+[id*='rt_color_separator'] {
     margin-top: -15px !important;
 }
+
 .customize-control .rt-background-attributes {
     margin-top: -10px;
     margin-bottom: 10px;
 }
+
 .customize-control .rt-background-attributes .bg-attr-item {
     display: flex;
     align-items: center;
@@ -1228,6 +1230,13 @@ Upsell Section
     display: flex;
     gap: 5px;
 }
+
 .toggle-switch-control.extra-padding {
     padding-left: 25px;
+}
+
+#customize-control-rt_footer_layout .radio-button-label {
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
 }
