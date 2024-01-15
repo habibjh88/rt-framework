@@ -568,14 +568,15 @@ class FieldManager {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
-			'sanitize_callback' => 'rttheme_switch_sanitization',
+			'sanitize_callback' => 'rttheme_text_sanitization',
 		];
 		$control_args  = [
 			'label'         => $field['label'] ?? '',
 			'description'   => $field['description'] ?? '',
 			'section'       => $field['section'] ?? '',
+			'use_as'        => $field['use_as'] ?? 'repeater',
 			'button_labels' => [
-				'add' => __( 'Add Row', 'skyrocket' ),
+				'add' => __( 'Add Item', 'skyrocket' ),
 			]
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );

@@ -588,7 +588,7 @@ input[type="number"]:focus {
 
 .sortable input[type="text"] {
     margin: 5px 5px 5px 0;
-    width: 80%;
+    width: 78%;
 }
 
 .sortable div {
@@ -1239,4 +1239,47 @@ Upsell Section
     cursor: pointer;
     margin-bottom: 10px;
     display: block;
+}
+
+/*Sort repeater Style*/
+.sortable_repeater_control .repeater {
+    border: 1px solid #aaa;
+    margin-bottom: 5px;
+    background: #efefef;
+    border-radius: 3px;
+    position: relative;
+}
+
+.sortable_repeater_control.as_sort .repeater {
+    padding-left: 12px;
+}
+
+.sortable_repeater_control.as_sort .repeater .repeater-input {
+    pointer-events: none;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.sortable_repeater_control .repeater .repeater-input {
+    height: 20px;
+    margin: 5px;
+    padding: 0 6px;
+}
+
+.sortable_repeater_control.as_sort .repeater .dashicons-sort {
+    right: 13px;
+}
+.sortable_repeater_control .repeater .dashicons-sort {
+    position: absolute;
+    padding: 0;
+    right: 31px;
+    top: 9px;
+    margin: 0;
+}
+.sortable_repeater_control .repeater .customize-control-sortable-repeater-delete {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    color: red;
 }

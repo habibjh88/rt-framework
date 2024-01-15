@@ -15,6 +15,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public $type = 'sortable_repeater';
 		/**
+         * User as 'repeater' OR 'sort'
+		 */
+        public $use_as = 'repeater';
+		/**
 		 * Button labels
 		 */
 		public $button_labels = [];
@@ -45,8 +49,9 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 * Render the control in the customizer
 		 */
 		public function render_content() {
+            $_class = $this->use_as == 'sort' ? 'as_sort' : 'as_repeater';
 			?>
-            <div class="sortable_repeater_control">
+            <div class="sortable_repeater_control <?php echo esc_attr( $_class ); ?>">
 				<?php if ( ! empty( $this->label ) ) { ?>
                     <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<?php } ?>
@@ -58,14 +63,17 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
                        class="customize-control-sortable-repeater" <?php $this->link(); ?> />
                 <div class="sortable">
                     <div class="repeater">
-                        <input type="text" value="" class="repeater-input" placeholder="https://"/><span
-                                class="dashicons dashicons-sort"></span><a
-                                class="customize-control-sortable-repeater-delete" href="#"><span
-                                    class="dashicons dashicons-no-alt"></span></a>
+                        <input type="text" value="" class="repeater-input"/>
+                        <span class="dashicons dashicons-sort"></span>
+						<?php if ( 'sort' !== $this->use_as ) : ?>
+                            <a class="customize-control-sortable-repeater-delete" href="#"><span class="dashicons dashicons-no-alt"></span></a>
+						<?php endif; ?>
                     </div>
                 </div>
-                <button class="button customize-control-sortable-repeater-add"
-                        type="button"><?php echo esc_html( $this->button_labels['add'] ); ?></button>
+				<?php if ( 'sort' !== $this->use_as ) : ?>
+                    <button class="button customize-control-sortable-repeater-add"
+                            type="button"><?php echo esc_html( $this->button_labels['add'] ); ?></button>
+				<?php endif; ?>
             </div>
 			<?php
 		}
