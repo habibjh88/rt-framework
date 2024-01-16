@@ -468,19 +468,10 @@ class FieldManager {
 			'description' => $field['description'] ?? '',
 			'section'     => $field['section'] ?? '',
 			'input_attrs' => [
-				'placeholder' => $field['placeholder'] ?? __( 'Please select...', 'skyrocket' ),
-				'multiselect' => false,
+				'placeholder' => $field['placeholder'] ?? __( 'Please select...', 'rt-framework' ),
+				'multiselect' => $field['multiselect'] ?? false,
 			],
-			'choices'     => [
-				'nsw' => __( 'New South Wales', 'skyrocket' ),
-				'vic' => __( 'Victoria', 'skyrocket' ),
-				'qld' => __( 'Queensland', 'skyrocket' ),
-				'wa'  => __( 'Western Australia', 'skyrocket' ),
-				'sa'  => __( 'South Australia', 'skyrocket' ),
-				'tas' => __( 'Tasmania', 'skyrocket' ),
-				'act' => __( 'Australian Capital Territory', 'skyrocket' ),
-				'nt'  => __( 'Northern Territory', 'skyrocket' ),
-			]
+			'choices'     => $field['choices'] ?? []
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Dropdown_Select2_Control( $wp_customize, $field['id'], $control_args ) );
@@ -576,7 +567,7 @@ class FieldManager {
 			'section'       => $field['section'] ?? '',
 			'use_as'        => $field['use_as'] ?? 'repeater',
 			'button_labels' => [
-				'add' => __( 'Add Item', 'skyrocket' ),
+				'add' => __( 'Add Item', 'rt-framework' ),
 			]
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
@@ -603,7 +594,7 @@ class FieldManager {
 			'description'   => $field['description'] ?? '',
 			'section'       => $field['section'] ?? '',
 			'button_labels' => [
-				'add' => __( 'Add Gallery', 'skyrocket' ),
+				'add' => __( 'Add Gallery', 'rt-framework' ),
 			]
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );

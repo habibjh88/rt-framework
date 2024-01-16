@@ -53,9 +53,31 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function render_content() {
 			$defaultValue = $this->value();
+			$choices      = $this->choices;
 			if ( $this->multiselect ) {
 				$defaultValue = explode( ',', $this->value() );
+
+
+				if ( ! empty( $defaultValue ) ) {
+					$new_choices = [];
+					foreach ( $defaultValue as $item ) {
+						if ( ! $item || ! in_array($item, array_keys($choices)) ) {
+							continue;
+						}
+						$new_choices[ $item ] = $this->choices[ $item ];
+					}
+					if ( ! empty( $new_choices ) ) {
+						foreach ( $this->choices as $item => $value ) {
+							if ( in_array( $value, $new_choices ) ) {
+								continue;
+							}
+							$new_choices[ $item ] = $value;
+						}
+						$choices = $new_choices;
+					}
+				}
 			}
+
 			?>
             <div class="dropdown_select2_control">
 				<?php if ( ! empty( $this->label ) ) { ?>
@@ -75,7 +97,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						// When using Select2 for single selection, the Placeholder needs an empty <option> at the top of the list for it to work (multi-selects dont need this)
 						echo '<option></option>';
 					}
-					foreach ( $this->choices as $key => $value ) {
+
+					foreach ( $choices as $key => $value ) {
 						if ( is_array( $value ) ) {
 							echo '<optgroup label="' . esc_attr( $key ) . '">';
 							foreach ( $value as $optgroupkey => $optgroupvalue ) {
@@ -84,7 +107,12 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 							}
 							echo '</optgroup>';
 						} else {
-							echo '<option value="' . esc_attr( $key ) . '" ' . selected( esc_attr( $key ), $defaultValue, false ) . '>' . esc_attr( $value ) . '</option>';
+							$selected = '';
+							if ( in_array( $key, $defaultValue ) ) {
+								$selected = 'selected';
+							}
+							//selected( esc_attr( $key ), $defaultValue, false )
+							echo '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . esc_attr( $value ) . '</option>';
 						}
 					}
 					?>

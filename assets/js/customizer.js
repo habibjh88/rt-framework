@@ -227,20 +227,53 @@ jQuery(document).ready(function ($) {
      * @link https://github.com/maddisondesigns
      */
 
+
     $('.customize-control-dropdown-pages select').select2({
-        allowClear: true
+        allowClear: true,
     });
+
 
     $('.customize-control-dropdown-select2').each(function () {
         $('.customize-control-select2').select2({
-            allowClear: true
+            allowClear: true,
+            templateSelection: function (state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = $(
+                    '<span data-id="' + state.id + '" class="newsfit-select-item">' + state.text + '</span>'
+                );
+                return $state;
+            }
         });
     });
+
+
+    // TODO==========================
+    $("ul.select2-selection__rendered").sortable({
+        containment: 'parent',
+        stop: function () {
+            // Update select2 data after sorting
+            var selectedValues = [];
+            $(this).find("li").each(function () {
+                // var value = $(this).attr("title");
+                var value = $(this).find('.newsfit-select-item').attr("data-id");
+                selectedValues.push(value);
+            });
+
+            // Clear current selections and select the sorted values
+            $(this).closest('.dropdown_select2_control').find('.customize-control-dropdown-select2').val(null).trigger("change");
+            $(this).closest('.dropdown_select2_control').find('.customize-control-dropdown-select2').val(selectedValues).trigger("change");
+        }
+    });
+
+    // TODO==========================
 
     $(".customize-control-select2").on("change", function () {
         var select2Val = $(this).val();
         $(this).parent().find('.customize-control-dropdown-select2').val(select2Val).trigger('change');
     });
+
 
     /**
      * Googe Font Select Custom Control
