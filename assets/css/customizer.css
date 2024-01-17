@@ -89,6 +89,10 @@
     border: 1px solid #aaa;
     border-radius: 4px;
 }
+.customize-control .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #F2F8FF;
+    border-color: #bfc4cb;
+}
 
 .customize-control select::after {
     content: ">";
@@ -1261,6 +1265,7 @@ Upsell Section
     margin: 0;
     padding: 0;
 }
+
 .sortable_repeater_control .repeater .repeater-input {
     height: 20px;
     margin: 5px;
@@ -1270,6 +1275,7 @@ Upsell Section
 .sortable_repeater_control.as_sort .repeater .dashicons-sort {
     right: 13px;
 }
+
 .sortable_repeater_control .repeater .dashicons-sort {
     position: absolute;
     padding: 0;
@@ -1277,6 +1283,7 @@ Upsell Section
     top: 9px;
     margin: 0;
 }
+
 .sortable_repeater_control .repeater .customize-control-sortable-repeater-delete {
     position: absolute;
     right: 5px;
@@ -1290,10 +1297,13 @@ Upsell Section
     padding: 4px 10px;
     cursor: move;
 }
+
 #customize-control-newsfit_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
     float: none;
     padding-right: 5px;
+
 }
+
 #customize-control-newsfit_blog_meta .select2-container--default .select2-search--inline .select2-search__field {
     width: 100% !important;
     border: 1px solid #ddd;
