@@ -80,6 +80,8 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		private function display_single_field( $key, $field, $post_id, $default = false ) {
+			$tr_class = str_replace( 'rt_layout_meta_data[', '', rtrim( $key, ']' ) );
+
 			$desc = '';
 			if ( ! empty( $field['desc'] ) ) {
 				$desc = '<div class="rt-postmeta-desc">' . wp_kses_post( $field['desc'] ) . '</div>';
@@ -95,11 +97,11 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			// Display Title
 			if ( $field['type'] == 'header' ) {
 				$default = empty( $field['default'] ) ? 'h1' : $field['default'];
-				echo '<tr' . $container_attr . '><td colspan="2"><' . esc_html( $default ) . '>' . esc_html( $field['label'] ) . '</' . esc_html( $default ) . '>' . $desc;
+				echo '<tr class="' . esc_attr( $tr_class ) . '"' . $container_attr . '><td colspan="2"><' . esc_html( $default ) . '>' . esc_html( $field['label'] ) . '</' . esc_html( $default ) . '>' . $desc;
 			} else if ( empty( $field['label'] ) ) {
-				echo '<tr' . $container_attr . '><td colspan="2">';
+				echo '<tr class="' . esc_attr( $tr_class ) . '"' . $container_attr . '><td colspan="2">';
 			} else {
-				echo '<tr' . $container_attr . '><th><label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] ) . '</label></th><td>';
+				echo '<tr class="' . esc_attr( $tr_class ) . '"' . $container_attr . '><th><label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] ) . '</label></th><td>';
 			}
 
 			// Set default value
