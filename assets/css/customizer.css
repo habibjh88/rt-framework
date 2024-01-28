@@ -10,6 +10,10 @@
     list-style: none;
 }
 
+#customize-preview iframe {
+    background-color: #FFFFFF;
+}
+
 .customize-control-title {
     margin-bottom: 6px;
     color: #212121;
@@ -89,6 +93,7 @@
     border: 1px solid #aaa;
     border-radius: 4px;
 }
+
 .customize-control .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #F2F8FF;
     border-color: #bfc4cb;
