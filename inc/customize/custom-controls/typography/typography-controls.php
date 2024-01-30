@@ -39,6 +39,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 * The number of fonts to display from the json file. Either positive integer or 'all'. Default = 'all'
 		 */
 		private $fontCount = 'all';
+
 		/**
 		 * Get our list of fonts from the json file
 		 */
@@ -122,7 +123,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
                     <div class="weight-style">
                         <div class="google-font-style-wrap">
-                            <div class="customize-control-description">Font weight</div>
+                            <div class="customize-control-description"><?php echo esc_html__( "Font weight", "rt-framework" ); ?></div>
                             <select class="google-fonts-regularweight-style">
 								<?php
 								foreach ( $this->fontList[ $this->fontListIndex ]->variants as $key => $value ) {
@@ -133,15 +134,15 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
                         </div>
 
                         <div class="google-font-style-wrap">
-                            <div class="customize-control-description">Font Size</div>
+                            <div class="customize-control-description"><?php echo esc_html__( "Font Size", "rt-framework" ); ?></div>
                             <input type="number" class="google-font-size google-font-style" value="<?php echo $this->fontValues->size ?>">
-                            <span>px</span>
+                            <span><?php echo esc_html__( "px", "rt-framework" ) ?></span>
                         </div>
 
                         <div class="google-font-style-wrap">
-                            <div class="customize-control-description">Font Height</div>
+                            <div class="customize-control-description"><?php echo esc_html__( "Line Height", "rt-framework" ) ?></div>
                             <input type="number" class="google-font-line-height google-font-style" value="<?php echo $this->fontValues->lineheight ?>">
-                            <span>px</span>
+                            <span><?php echo esc_html__( "px", "rt-framework" ) ?></span>
                         </div>
                     </div>
                 </div>
@@ -173,8 +174,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$body_content = "";
 
 			if ( $_font_path === 'url' ) {
-                $fontFile = RT_FRAMEWORK_DIR_URL . '/inc/customize/custom-controls/typography/google-fonts/google-fonts-popularity.json';
-				$request = wp_remote_get( $fontFile );
+				$fontFile = RT_FRAMEWORK_DIR_URL . '/inc/customize/custom-controls/typography/google-fonts/google-fonts-popularity.json';
+				$request  = wp_remote_get( $fontFile );
 				if ( is_wp_error( $request ) ) {
 					return "";
 				}

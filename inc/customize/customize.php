@@ -124,6 +124,19 @@ class Customize {
 	}
 
 	/**
+	 * Add Panels
+	 *
+	 * @param $panels
+	 *
+	 * @return void
+	 */
+	public static function add_panels( $panels ): void {
+		foreach ( $panels as $panel ) {
+			self::$panels[] = $panel;
+		}
+	}
+
+	/**
 	 * Add sections
 	 *
 	 * @param $section
