@@ -127,6 +127,9 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
                             <select class="google-fonts-regularweight-style">
 								<?php
 								foreach ( $this->fontList[ $this->fontListIndex ]->variants as $key => $value ) {
+									if ( $value == 'regular' ) {
+										$value = 'normal';
+									}
 									echo '<option value="' . $value . '" ' . selected( $this->fontValues->regularweight, $value, false ) . '>' . $value . '</option>';
 								}
 								?>
