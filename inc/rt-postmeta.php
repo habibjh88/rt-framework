@@ -184,10 +184,9 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 
 		public function sanitize_field( $data, $type ) {
 			switch ( $type ) {
-				case 'multi_select':
-					$data = array_filter( $data, 'sanitize_text_field' );
-					break;
 				case 'multi_checkbox':
+				case 'multi_select2':
+				case 'multi_select':
 					$data = array_filter( $data, 'sanitize_text_field' );
 					break;
 				case 'textarea':

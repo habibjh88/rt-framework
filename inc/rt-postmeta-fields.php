@@ -217,6 +217,37 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			echo '</select>';
 		}
 
+		public function multi_select2( $key, $field, $default, $class ) {
+			if ( empty( $default ) ) {
+				$default = [];
+			}
+			echo '<select class="rt-multi-select" data-placeholder=" ' . esc_attr__( 'Click here to select options', 'rt-framework' ) . '" multiple="multiple"' .
+			     ' name="' . esc_attr( $key ) . '[]"' .
+			     ' id="' . esc_attr( $key ) . '">';
+
+			foreach ( $field['options'] as $key => $option ) {
+
+				$label = $option['label'] ?? '';
+				echo '<optgroup label="' . esc_html( $label ) . '" data-select2-id="select2-data-' . $key . '">';
+
+				foreach ( $option['value'] as $key2 => $value ) {
+					$selected = in_array( $key2, $default ) ? 'selected="selected"' : '';
+					?>
+                    <option
+						<?php echo esc_attr( $selected ) ?>
+                            value="<?php echo esc_attr( $key2 ) ?>"
+                            data-select2-id="<?php echo esc_attr( $key2 ) ?>"
+                    >
+						<?php echo esc_html( $value ) ?>
+                    </option>
+					<?php
+				}
+
+				echo ' </optgroup>';
+			}
+			echo '</select>';
+		}
+
 		public function multi_checkbox( $key, $field, $default, $class ) {
 			if ( empty( $default ) ) {
 				$default = [];
