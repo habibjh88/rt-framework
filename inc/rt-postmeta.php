@@ -159,15 +159,17 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 
 		public function sanitize_group_field( $data, $type ) {
 			foreach ( $type as $key => $value ) {
-				$data[ $key ] = $this->sanitize_field( $data[ $key ], $value['type'] );
+				if ( isset( $data[ $key ] ) ) {
+					$data[ $key ] = $this->sanitize_field( $data[ $key ], $value['type'] );
+				}
 			}
 
 			return $data;
 		}
 
-		public function filter_empty( $data ) {
-			return array_filter( $data );
-		}
+//		public function filter_empty( $data ) {
+//			return array_filter( $data );
+//		}
 
 		public function sanitize_repeater_field( $data, $type ) {
 			unset( $data['hidden'] ); // unset hidden
@@ -187,6 +189,7 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 				case 'multi_checkbox':
 				case 'multi_select2':
 				case 'multi_select':
+				case 'ajax_select':
 					$data = array_filter( $data, 'sanitize_text_field' );
 					break;
 				case 'textarea':

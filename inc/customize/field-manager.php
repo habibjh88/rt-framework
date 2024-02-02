@@ -63,13 +63,20 @@ class FieldManager {
 		}
 		foreach ( $fields_group as $section_id => $fields ) {
 			foreach ( $fields as $id => $field ) {
+				//Check condition
 				if ( ! empty( $field['condition'] ) ) {
 					self::$conditions[ $id ] = $field['condition'];
 				}
 				$field['section'] = $section_id;
 				$field['id']      = $id;
+				//Field generate
 				if ( method_exists( __CLASS__, $field['type'] ) ) {
 					self::{$field['type']}( $wp_customize, $field );
+
+				}
+				//Add Edit Link
+				if ( ! empty( $field['edit-link'] ) && isset( $wp_customize->selective_refresh ) ) {
+					self::edit_link( $wp_customize, $field );
 				}
 			}
 		}
@@ -116,6 +123,7 @@ class FieldManager {
 		$control_args = self::cehck_condition( $control_args, $field );
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Custom_Heading( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -649,6 +657,23 @@ class FieldManager {
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_BG_Attributes_Control( $wp_customize, $field['id'], $control_args ) );
+	}
+
+	/**
+	 * Customize Edit Link
+	 *
+	 * @param $wp_customize
+	 * @param $field
+	 *
+	 * @return void
+	 */
+	public static function edit_link( $wp_customize, $field ) {
+		$wp_customize->selective_refresh->add_partial( $field['id'], [
+			'selector'            => $field['edit-link'],
+			'container_inclusive' => true,
+			'render_callback'     => '__return_false',
+			'fallback_refresh'    => false,
+		] );
 	}
 
 }

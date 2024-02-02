@@ -99,6 +99,7 @@ class Customize {
 
 			$wp_customize->add_section( $section['id'], $args );
 		}
+
 	}
 
 	/**

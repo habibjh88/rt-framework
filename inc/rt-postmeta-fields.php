@@ -120,6 +120,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				$class = 'class="rtfm-meta-field"';
 			}
 
+			$field['post_id'] = $post_id;
 			// Display input
 			if ( method_exists( $this, $field['type'] ) ) {
 				$this->{$field['type']}( $key, $field, $default, $class );
@@ -231,7 +232,11 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				echo '<optgroup label="' . esc_html( $label ) . '" data-select2-id="select2-data-' . $key . '">';
 
 				foreach ( $option['value'] as $key2 => $value ) {
-					$selected = in_array( $key2, $default ) ? 'selected="selected"' : '';
+					if ( is_array( $default ) ) {
+						$selected = in_array( $key2, $default ) ? 'selected="selected"' : '';
+					} else {
+						$selected = $key2 == $default ? 'selected="selected"' : '';
+					}
 					?>
                     <option
 						<?php echo esc_attr( $selected ) ?>
@@ -246,6 +251,37 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				echo ' </optgroup>';
 			}
 			echo '</select>';
+		}
+
+		public function ajax_select( $key, $field, $default, $class ) {
+			if ( empty( $default ) ) {
+				$default = [];
+			}
+            ?>
+            <label>
+                <select
+                        name="<?php echo esc_attr( $key ) ?>[]"
+                        id="<?php echo esc_attr( $key ) ?>"
+                        class="js-example-data-ajax"
+                        multiple="multiple"
+                        style="width:400px;">
+
+					<?php
+					if ( ! empty( $default ) ) {
+						foreach ( $default as $item ) {
+
+                            $post = get_post($item);
+                            error_log( print_r( $post, true ) . "\n\n" , 3, __DIR__ . '/log.txt' );
+
+                            $p = get_the_title($item);
+
+							echo "<option value='$item' selected> $p </option>";
+						}
+					}
+					?>
+                </select>
+            </label>
+			<?php
 		}
 
 		public function multi_checkbox( $key, $field, $default, $class ) {
