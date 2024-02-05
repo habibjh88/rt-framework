@@ -182,7 +182,6 @@
                 multiple: false
             }).on("select", function () {
                 var attachment = custom_uploader.state().get("selection").first().toJSON();
-                console.log(attachment);
                 btnClicked.closest(".rt_metabox_file").find(".custom_upload_file").val(attachment.id);
                 btnClicked.closest(".rt_metabox_file").find(".custom_preview_file").attr("href", attachment.url).html(attachment.title).show();
                 btnClicked.closest(".rt_metabox_file").find(".rt_remove_file_wrap").show();
@@ -266,36 +265,36 @@
 
     jQuery(document).ready(function ($) {
 
-        $(".js-example-data-ajax").select2({
-            ajax: {
-                // url: "https://api.cdnjs.com/libraries/",
-                //?filter[posts_status]=publish
+        var checkSlectVal =  $('.rt-header-footer-select').val()
+        if (checkSlectVal.includes('custom')) {
+            $('.rt_el_builder_meta-choose_post').show();
+        }
+        $('.rt-header-footer-select').on("change", function (event) {
+            var selectValue = $(this).val();
+            if (selectValue.includes('custom')) {
+                $(this).closest('tr').next().show();
+            } else {
+                $(this).closest('tr').next().hide();
+            }
+        });
 
-                url: "http://test.test:8080/wp-json/wp/v2/posts/",
+        $(".rt-multiple-select2-ajax").select2({
+            ajax: {
+                url: rtFramwork.rest_url + "rt/v1/all-posts",
                 dataType: "json",
                 delay: 250,
                 data: function (params) {
                     return {
-                        search: params.term, // "search" = match the expected API URL variable
+                        search: params.term,
                         page: params.page,
-                        fields: "title,slug,description"
                     };
                 },
                 processResults: function (data, params) {
                     params.page = params.page || 1;
-
-                    console.log(data)
-
-                    data = jQuery.map(data, function (obj) {
-                        obj.id = obj.id;
-                        obj.text = obj.title.rendered;
-                        return obj;
-                    });
-
                     return {
                         results: data,
                         pagination: {
-                            more: params.page * 30 < data.length
+                            more: params.page * 15 < data.length
                         }
                     };
                 },

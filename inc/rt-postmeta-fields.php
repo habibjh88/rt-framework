@@ -80,7 +80,16 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		private function display_single_field( $key, $field, $post_id, $default = false ) {
-			$tr_class = str_replace( 'rt_layout_meta_data[', '', rtrim( $key, ']' ) );
+			$tr_class = str_replace( '[', '-', rtrim( $key, ']' ) );
+
+			// Set default value
+			if ( ! $default ) {
+				$default = get_post_meta( $post_id, $key, true );
+			}
+
+			if ( $field['type'] != 'multi_checkbox' && empty( $default ) && ! empty( $field['default'] ) ) {
+				$default = $field['default'];
+			}
 
 			$desc = '';
 			if ( ! empty( $field['desc'] ) ) {
@@ -94,6 +103,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				$container_attr .= ' data-required-value="' . esc_attr( $field['required'][1] ) . '"';
 			}
 
+
 			// Display Title
 			if ( $field['type'] == 'header' ) {
 				$default = empty( $field['default'] ) ? 'h1' : $field['default'];
@@ -104,20 +114,12 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				echo '<tr class="' . esc_attr( $tr_class ) . '"' . $container_attr . '><th><label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] ) . '</label></th><td>';
 			}
 
-			// Set default value
-			if ( ! $default ) {
-				$default = get_post_meta( $post_id, $key, true );
-			}
-
-			if ( $field['type'] != 'multi_checkbox' && empty( $default ) && ! empty( $field['default'] ) ) {
-				$default = $field['default'];
-			}
 
 			// class
 			if ( ! empty( $field['class'] ) ) {
-				$class = 'class="rtfm-meta-field ' . esc_attr( $field['class'] ) . '"';
+				$class = "rtfm-meta-field " . esc_attr( $field['class'] );
 			} else {
-				$class = 'class="rtfm-meta-field"';
+				$class = "rtfm-meta-field";
 			}
 
 			$field['post_id'] = $post_id;
@@ -131,16 +133,14 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		public function text( $key, $field, $default, $class ) {
-			echo '<input type="text"' . $class .
-			     ' name="' . esc_attr( $key ) . '"' .
+			echo '<input type="text" class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 			     ' id="' . esc_attr( $key ) . '"' .
 			     ' value="' . esc_attr( $default ) . '' .
 			     '" />';
 		}
 
 		public function number( $key, $field, $default, $class ) {
-			echo '<input type="number"' . $class .
-			     ' name="' . esc_attr( $key ) . '"' .
+			echo '<input type="number" class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 			     ' id="' . esc_attr( $key ) . '"' .
 			     ' value="' . esc_attr( $default ) . '"' .
 			     ' step="any"' .
@@ -148,8 +148,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		public function textarea( $key, $field, $default, $class ) {
-			echo '<textarea ' . $class .
-			     'name="' . esc_attr( $key ) . '"' .
+			echo '<textarea class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 			     ' id="' . esc_attr( $key ) . '"' .
 			     '>' .
 			     esc_textarea( $default ) .
@@ -157,8 +156,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		public function textarea_html( $key, $field, $default, $class ) {
-			echo '<textarea ' . $class .
-			     'name="' . esc_attr( $key ) . '"' .
+			echo '<textarea class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 			     ' id="' . esc_attr( $key ) . '"' .
 			     '>' .
 			     Helper::homlisti_kses( $default ) .
@@ -166,7 +164,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		public function select( $key, $field, $default, $class ) {
-			echo '<select name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '"' . $class . '>';
+			echo '<select name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" class="' . $class . '">';
 			foreach ( $field['options'] as $key => $value ) {
 				echo '<option',
 				$default == $key ? ' selected="selected"' : '',
@@ -178,8 +176,9 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			echo '</select>';
 		}
 
+
 		public function icon_select( $key, $field, $default, $class ) {
-			echo '<select class="select2_font_awesome" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '">';
+			echo '<select class="select2_font_awesome ' . $class . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '">';
 			foreach ( $field['options'] as $key => $value ) {
 				echo '<option',
 				$default == $key ? ' selected="selected"' : '',
@@ -204,7 +203,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			if ( empty( $default ) ) {
 				$default = [];
 			}
-			echo '<select class="rt-multi-select" data-placeholder=" ' . esc_attr__( 'Click here to select options', 'rt-framework' ) . '" multiple="multiple"' .
+			echo '<select class="rt-multi-select ' . $class . '" data-placeholder=" ' . esc_attr__( 'Click here to select options', 'rt-framework' ) . '" multiple="multiple"' .
 			     ' name="' . esc_attr( $key ) . '[]"' .
 			     ' id="' . esc_attr( $key ) . '">';
 			foreach ( $field['options'] as $key => $value ) {
@@ -222,7 +221,8 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			if ( empty( $default ) ) {
 				$default = [];
 			}
-			echo '<select class="rt-multi-select" data-placeholder=" ' . esc_attr__( 'Click here to select options', 'rt-framework' ) . '" multiple="multiple"' .
+
+			echo '<select class="rt-multi-select ' . $class . '" data-placeholder=" ' . esc_attr__( 'Click here to select options', 'rt-framework' ) . '" multiple="multiple"' .
 			     ' name="' . esc_attr( $key ) . '[]"' .
 			     ' id="' . esc_attr( $key ) . '">';
 
@@ -257,24 +257,19 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			if ( empty( $default ) ) {
 				$default = [];
 			}
-            ?>
+			$class = "rt-multiple-select2-ajax " . esc_attr( $class );
+			?>
             <label>
                 <select
                         name="<?php echo esc_attr( $key ) ?>[]"
                         id="<?php echo esc_attr( $key ) ?>"
-                        class="js-example-data-ajax"
+                        class="<?php echo esc_attr( $class ) ?>"
                         multiple="multiple"
                         style="width:400px;">
-
 					<?php
 					if ( ! empty( $default ) ) {
 						foreach ( $default as $item ) {
-
-                            $post = get_post($item);
-                            error_log( print_r( $post, true ) . "\n\n" , 3, __DIR__ . '/log.txt' );
-
-                            $p = get_the_title($item);
-
+							$p = get_the_title( $item );
 							echo "<option value='$item' selected> $p </option>";
 						}
 					}
@@ -292,8 +287,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			foreach ( $field['options'] as $value => $title ) {
 				$id = $key . '_' . $value;
 
-				echo '<span class="rt-postmeta-radio"><input type="checkbox"' . $class .
-				     ' name="' . esc_attr( $key ) . '[]"' .
+				echo '<span class="rt-postmeta-radio"><input type="checkbox" class="' . $class . '" name="' . esc_attr( $key ) . '[]"' .
 				     ' id="' . esc_attr( $id ) . '"' .
 				     ' value="' . esc_attr( $value ) . '"',
 				in_array( $value, $default ) ? ' checked="checked"' : '',
@@ -309,8 +303,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			foreach ( $field['options'] as $value => $title ) {
 				$id = $key . '_' . $value;
 
-				echo '<span class="rt-postmeta-radio"><input type="radio"' . $class .
-				     ' name="' . esc_attr( $key ) . '"' .
+				echo '<span class="rt-postmeta-radio"><input type="radio" class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 				     ' id="' . esc_attr( $id ) . '"' .
 				     ' value="' . esc_attr( $value ) . '"',
 				$default == $value ? ' checked="checked"' : '',
