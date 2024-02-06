@@ -17,8 +17,8 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 		private $metaboxes = [];
 		private $metabox_fields = [];
 
-		private $nonce_action = 'rt_metabox_nonce';
-		private $nonce_field = 'rt_metabox_nonce_secret';
+		public $nonce_action = 'rt_metabox_nonce';
+		public $nonce_field = 'rt_metabox_nonce_secret';
 
 		private function __construct() {
 			$this->fields_obj = new RT_Postmeta_Fields();
@@ -42,7 +42,6 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'load_styles_and_scripts' ] );
 			add_action( 'add_meta_boxes', [ $this, 'register_meta_boxes' ], 5 );
 			add_action( 'save_post', [ $this, 'save_metaboxes' ] );
-			add_action( 'save_post_elementor-newsfit', [ $this, 'save_el_newsfit' ] );
 		}
 
 		public function load_styles_and_scripts() {
@@ -133,39 +132,6 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 					$this->save_single_meta( $field, $data, $post_id );
 				}
 			}
-		}
-
-		public function save_el_newsfit( $post_id ) {
-			if ( empty( $_POST[ $this->nonce_field ] ) || ! check_admin_referer( $this->nonce_action, $this->nonce_field ) ) {
-				return $post_id;
-			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return $post_id;
-			}
-			if ( ! current_user_can( 'edit_page', $post_id ) ) {
-				return $post_id;
-			}
-
-			if ( ! isset( $_POST['rt_el_builder_meta']['template_type'] ) ) {
-				return $post_id;
-			}
-
-			$template_type = $_POST['rt_el_builder_meta']['template_type'];
-
-			if ( 'header' === $template_type ) {
-				if ( get_option( 'rt_hf_footer' ) == $post_id ) {
-					delete_option( 'rt_hf_footer' );
-				}
-				update_option( 'rt_hf_header', $post_id );
-			}
-
-			if ( 'footer' === $template_type ) {
-				if ( get_option( 'rt_hf_header' ) == $post_id ) {
-					delete_option( 'rt_hf_header' );
-				}
-				update_option( 'rt_hf_footer', $post_id );
-			}
-
 		}
 
 		public function save_single_meta( $field, $data, $post_id ) {
