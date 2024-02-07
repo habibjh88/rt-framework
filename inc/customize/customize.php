@@ -44,7 +44,7 @@ class Customize {
 	/**
 	 * @return void
 	 */
-	public function includes_custom_controls(): void {
+	public function includes_custom_controls() {
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/sanitization.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/headings.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/switch-control.php';
@@ -64,7 +64,7 @@ class Customize {
 	/**
 	 * Customizer Panels
 	 */
-	public function add_customizer_panels( $wp_customize ): void {
+	public function add_customizer_panels( $wp_customize ) {
 		if ( empty( self::$panels ) ) {
 			return;
 		}
@@ -82,7 +82,7 @@ class Customize {
 	/**
 	 * Customizer sections
 	 */
-	public function add_customizer_sections( $wp_customize ): void {
+	public function add_customizer_sections( $wp_customize ) {
 
 		if ( empty( self::$sections ) ) {
 			return;
@@ -109,7 +109,7 @@ class Customize {
 	 *
 	 * @return void
 	 */
-	public function add_customizer_controls( $wp_customize ): void {
+	public function add_customizer_controls( $wp_customize ) {
 		new FieldManager( $wp_customize, self::$fields, self::$fields_group );
 	}
 
@@ -120,7 +120,7 @@ class Customize {
 	 *
 	 * @return void
 	 */
-	public static function add_panel( $panel ): void {
+	public static function add_panel( $panel ) {
 		self::$panels[] = $panel;
 	}
 
@@ -131,7 +131,7 @@ class Customize {
 	 *
 	 * @return void
 	 */
-	public static function add_panels( $panels ): void {
+	public static function add_panels( $panels ) {
 		foreach ( $panels as $panel ) {
 			self::$panels[] = $panel;
 		}
@@ -144,7 +144,7 @@ class Customize {
 	 *
 	 * @return void
 	 */
-	public static function add_section( $section ): void {
+	public static function add_section( $section ) {
 		self::$sections[] = $section;
 	}
 
@@ -155,7 +155,7 @@ class Customize {
 	 *
 	 * @return void
 	 */
-	public static function add_control( $field ): void {
+	public static function add_control( $field ) {
 		self::$fields[] = $field;
 	}
 
@@ -167,7 +167,7 @@ class Customize {
 	 *
 	 * @return void
 	 */
-	public static function add_controls( $section, $fields ): void {
+	public static function add_controls( $section, $fields ) {
 		self::$fields_group[ $section ] = $fields;
 	}
 }

@@ -6,7 +6,6 @@
 #. Special Params   : button(repeater)
 */
 
-use radiustheme\HomListi\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -159,7 +158,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			echo '<textarea class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 			     ' id="' . esc_attr( $key ) . '"' .
 			     '>' .
-			     Helper::homlisti_kses( $default ) .
+			     $default .
 			     '</textarea>';
 		}
 
@@ -226,7 +225,12 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			     ' name="' . esc_attr( $key ) . '[]"' .
 			     ' id="' . esc_attr( $key ) . '">';
 
-			foreach ( $field['options'] as $key => $option ) {
+			$options = $field['options'];
+			if ( 'all_post_type' == $field['options'] ) {
+				$options = get_builder_type();
+			}
+
+			foreach ( $options as $key => $option ) {
 
 				$label = $option['label'] ?? '';
 				echo '<optgroup label="' . esc_html( $label ) . '" data-select2-id="select2-data-' . $key . '">';

@@ -107,7 +107,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function heading( $wp_customize, $field ): void {
+	public static function heading( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'sanitize_callback' => 'esc_html',
@@ -134,7 +134,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function text( $wp_customize, $field ): void {
+	public static function text( $wp_customize, $field ) {
 
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
@@ -155,7 +155,7 @@ class FieldManager {
 		$wp_customize->add_control( $field['id'], $control_args );
 	}
 
-	public static function url( $wp_customize, $field ): void {
+	public static function url( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -179,7 +179,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function number( $wp_customize, $field ): void {
+	public static function number( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -204,7 +204,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function textarea( $wp_customize, $field ): void {
+	public static function textarea( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -229,7 +229,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function select( $wp_customize, $field ): void {
+	public static function select( $wp_customize, $field ) {
 		$settings_args = [
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'rttheme_text_sanitization',
@@ -254,7 +254,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function image_select( $wp_customize, $field ): void {
+	public static function image_select( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -279,7 +279,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function image( $wp_customize, $field ): void {
+	public static function image( $wp_customize, $field ) {
 		$button_label  = $field['button_label'] ?? __( 'Image', 'homlisti' );
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
@@ -314,7 +314,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function checkbox( $wp_customize, $field ): void {
+	public static function checkbox( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -338,7 +338,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function radio( $wp_customize, $field ): void {
+	public static function radio( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -363,7 +363,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function pages( $wp_customize, $field ): void {
+	public static function pages( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -387,7 +387,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function color( $wp_customize, $field ): void {
+	public static function color( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -412,7 +412,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function alfa_color( $wp_customize, $field ): void {
+	public static function alfa_color( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -436,7 +436,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function datetime( $wp_customize, $field ): void {
+	public static function datetime( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -465,7 +465,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function select2( $wp_customize, $field ): void {
+	public static function select2( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -493,7 +493,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function switch( $wp_customize, $field ): void {
+	public static function switch( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -518,7 +518,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function tinymce( $wp_customize, $field ): void {
+	public static function tinymce( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -542,7 +542,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function separator( $wp_customize, $field ): void {
+	public static function separator( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'sanitize_callback' => 'rttheme_switch_sanitization',
@@ -563,7 +563,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function repeater( $wp_customize, $field ): void {
+	public static function repeater( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -591,7 +591,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function gallery( $wp_customize, $field ): void {
+	public static function gallery( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -618,7 +618,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function typography( $wp_customize, $field ): void {
+	public static function typography( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'sanitize_callback' => 'rttheme_google_font_sanitization',
@@ -645,7 +645,7 @@ class FieldManager {
 	 *
 	 * @return void
 	 */
-	public static function bg_attribute( $wp_customize, $field ): void {
+	public static function bg_attribute( $wp_customize, $field ) {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'sanitize_callback' => 'rttheme_google_font_sanitization',

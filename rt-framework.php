@@ -29,6 +29,7 @@ function rt_fw_load_textdomain() {
 // Load Framework
 add_action( 'setup_theme', 'rt_fw_load_files' );
 function rt_fw_load_files() {
+	require_once RT_FRAMEWORK_BASE_DIR . 'inc/helper/helper.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/rt-posts.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/rt-postmeta.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/rt-taxmeta.php';
