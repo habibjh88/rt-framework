@@ -226,10 +226,6 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			     ' id="' . esc_attr( $key ) . '">';
 
 			$options = $field['options'];
-			if ( 'all_post_type' == $field['options'] ) {
-				$options = get_builder_type();
-			}
-
 			foreach ( $options as $key => $option ) {
 
 				$label = $option['label'] ?? '';

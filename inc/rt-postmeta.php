@@ -156,7 +156,7 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 					}
 				}
 			} else {
-				if ( $data['type'] == 'checkbox' || $data['type'] == 'multi_checkbox' || $data['type'] == 'multi_select' ) {
+				if ( $data['type'] == 'checkbox' || $data['type'] == 'multi_checkbox' || $data['type'] == 'multi_select' || $data['type'] == 'multi_select2' || $data['type'] == 'ajax_select' ) {
 					delete_post_meta( $post_id, $field );
 				}
 			}

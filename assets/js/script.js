@@ -265,7 +265,7 @@
 
     jQuery(document).ready(function ($) {
 
-        var checkSlectVal =  $('.rt-header-footer-select').val()
+       /* var checkSlectVal =  $('.rt-header-footer-select').val()
         if (checkSlectVal.includes('custom')) {
             $('.rt_el_builder_meta-choose_post').show();
         }
@@ -277,7 +277,7 @@
                 $(this).closest('tr').next().hide();
             }
         });
-
+*/
         $(".rt-multiple-select2-ajax").select2({
             ajax: {
                 url: rtFramwork.rest_url + "rt/v1/all-posts",
