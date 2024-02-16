@@ -280,7 +280,7 @@ class FieldManager {
 	 * @return void
 	 */
 	public static function image( $wp_customize, $field ) {
-		$button_label  = $field['button_label'] ?? __( 'Image', 'homlisti' );
+		$button_label  = $field['button_label'] ?? __( 'Image', 'rt-framework' );
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
@@ -292,13 +292,13 @@ class FieldManager {
 			'section'       => $field['section'] ?? '',
 			'mime_type'     => $field['mime_type'] ?? 'image',
 			'button_labels' => [
-				'select'       => esc_html__( 'Select', 'homlisti' ) . ' ' . $button_label,
-				'change'       => esc_html__( 'Change', 'homlisti' ) . ' ' . $button_label,
-				'default'      => esc_html__( 'Default', 'homlisti' ) . ' ' . $button_label,
-				'remove'       => esc_html__( 'Remove', 'homlisti' ) . ' ' . $button_label,
-				'placeholder'  => esc_html__( "No file selected", 'homlisti' ),
-				'frame_title'  => esc_html__( 'Select', 'homlisti' ) . ' ' . $button_label,
-				'frame_button' => esc_html__( 'Choose', 'homlisti' ) . ' ' . $button_label,
+				'select'       => esc_html__( 'Select', 'rt-framework' ) . ' ' . $button_label,
+				'change'       => esc_html__( 'Change', 'rt-framework' ) . ' ' . $button_label,
+				'default'      => esc_html__( 'Default', 'rt-framework' ) . ' ' . $button_label,
+				'remove'       => esc_html__( 'Remove', 'rt-framework' ) . ' ' . $button_label,
+				'placeholder'  => esc_html__( "No file selected", 'rt-framework' ),
+				'frame_title'  => esc_html__( 'Select', 'rt-framework' ) . ' ' . $button_label,
+				'frame_button' => esc_html__( 'Choose', 'rt-framework' ) . ' ' . $button_label,
 			],
 		];
 

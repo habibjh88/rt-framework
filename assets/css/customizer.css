@@ -1314,3 +1314,10 @@ Upsell Section
     border: 1px solid #ddd;
     padding-left: 5px;
 }
+
+.customize-control .attachment-media-view .button {
+    padding: 5px !important;
+    height: 30px !important;
+    line-height: 1;
+    margin: 7px 0 4px 0 !important;
+}

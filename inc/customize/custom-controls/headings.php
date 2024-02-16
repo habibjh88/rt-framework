@@ -16,7 +16,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 		public function render_content() {
 			?>
-            <div class="homlisti-custom-headding">
+            <div class="rt-framework-custom-headding">
 				<?php
 				if ( isset( $this->label ) && '' !== $this->label ) {
 					echo '<span class="customize-control-heading">' . sanitize_text_field( $this->label ) . '</span>';

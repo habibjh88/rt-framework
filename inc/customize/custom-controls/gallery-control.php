@@ -26,7 +26,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			// Merge the passed button labels with our default labels
 			$this->button_labels = wp_parse_args( $this->button_labels,
 				[
-					'add' => esc_html__( 'Add', 'homlisti' ),
+					'add' => esc_html__( 'Add', 'rt-framework' ),
 				]
 			);
 		}

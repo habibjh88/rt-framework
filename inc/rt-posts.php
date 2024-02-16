@@ -1,23 +1,26 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-if( !class_exists( 'RT_Posts' ) ){
+if ( ! class_exists( 'RT_Posts' ) ) {
 
 	class RT_Posts {
-		
+
 		protected static $instance = null;
-		private $post_types = array();
-		private $taxonomies = array();
+		private $post_types = [];
+		private $taxonomies = [];
 
 		private function __construct() {
-			add_action( 'init', array( $this, 'initialize' ) );
+			add_action( 'init', [ $this, 'initialize' ] );
 		}
 
 		public static function getInstance() {
 			if ( null == self::$instance ) {
 				self::$instance = new self;
 			}
+
 			return self::$instance;
 		}
 
@@ -28,115 +31,80 @@ if( !class_exists( 'RT_Posts' ) ){
 
 		public function add_post_types( $post_types ) {
 
-			foreach ( $post_types as $post_type => $args ) {
+			foreach ( $post_types as $post_type ) {
 
-				$title = $args['title'];
-				$plural_title = empty( $args['plural_title'] ) ? $title : $args['plural_title'];
-				
-				if ( ! empty( $args['rewrite'] ) ) {
-					$args['rewrite'] = array( 'slug' => $args['rewrite'] );
-				}
-
-				$labels      = array(
-					'name'                     => $plural_title,
-					'singular_name'            => $title,
-					'add_new'                  => esc_html__( 'Add New', 'rt-framework' ),
-					'add_new_item'             => sprintf( esc_html__( 'Add New %s', 'rt-framework' ), $title ),
-					'edit_item'                => sprintf( esc_html__( 'Edit %s', 'rt-framework' ), $title ),
-					'new_item'                 => sprintf( esc_html__( 'New %s', 'rt-framework' ), $title ),
-					'view_item'                => sprintf( esc_html__( 'View %s', 'rt-framework' ), $title ),
-					'view_items'               => sprintf( esc_html__( 'View %s', 'rt-framework' ), $plural_title ),
-					'search_items'             => sprintf( esc_html__( 'Search %s', 'rt-framework' ), $plural_title ),
-					'not_found'                => sprintf( esc_html__( '%s not found', 'rt-framework' ), $plural_title ),
-					'not_found_in_trash'       => sprintf( esc_html__( '%s found in Trash', 'rt-framework' ), $plural_title ),
-					'parent_item_colon'        => '',
-					'all_items'                => sprintf( esc_html__( 'All %s', 'rt-framework' ), $plural_title ),
-					'archives'                 => sprintf( esc_html__( '%s Archives', 'rt-framework' ), $title ),
-					'attributes'               => sprintf( esc_html__( '%s Attributes', 'rt-framework' ), $title ),
-					'insert_into_item'         => sprintf( esc_html__( 'Insert into %s', 'rt-framework' ), $title ),
-					'uploaded_to_this_item'    => sprintf( esc_html__( 'Uploaded to this %s', 'rt-framework' ), $title ),
-					'filter_items_list'        => sprintf( esc_html__( 'Filter %s list', 'rt-framework' ), $plural_title ),
-					'items_list_navigation'    => sprintf( esc_html__( '%s list navigation', 'rt-framework' ), $plural_title ),
-					'items_list'               => sprintf( esc_html__( '%s list', 'rt-framework' ), $plural_title ),
-					'item_published'           => sprintf( esc_html__( '%s published.', 'rt-framework' ), $title ),
-					'item_published_privately' => sprintf( esc_html__( '%s published privately.', 'rt-framework' ), $title ),
-					'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'rt-framework' ), $title ),
-					'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'rt-framework' ), $title ),
-					'item_updated'             => sprintf( esc_html__( '%s  updated.', 'rt-framework' ), $title ),
-					'menu_name'                => $plural_title
-				);
-
-				if ( !empty( $args['labels_override'] ) ) {
-					$labels = wp_parse_args( $args['labels_override'], $labels );
-				}
-
-				$defaults = array(
+				$labels = [
+					'name'               => _x( $post_type['plural'], 'post type general name', 'rt-framework' ),
+					'singular_name'      => _x( $post_type['singular'], 'post type singular name', 'rt-framework' ),
+					'menu_name'          => _x( $post_type['plural'], 'admin menu', 'rt-framework' ),
+					'name_admin_bar'     => _x( $post_type['singular'], 'add new on admin bar', 'rt-framework' ),
+					'add_new'            => _x( 'Add New ' . $post_type['singular'], 'rt-framework' ),
+					'add_new_item'       => __( 'Add New ' . $post_type['singular'], 'rt-framework' ),
+					'new_item'           => __( 'New ' . $post_type['singular'], 'rt-framework' ),
+					'edit_item'          => __( 'Edit ' . $post_type['singular'], 'rt-framework' ),
+					'view_item'          => __( 'View ' . $post_type['singular'], 'rt-framework' ),
+					'view_items'         => __( 'View ' . $post_type['plural'], 'rt-framework' ),
+					'all_items'          => __( 'All ' . $post_type['plural'], 'rt-framework' ),
+					'search_items'       => __( 'Search' . $post_type['plural'], 'rt-framework' ),
+					'parent_item_colon'  => __( 'Parent ' . $post_type['plural'], 'rt-framework' ),
+					'not_found'          => __( 'No ' . $post_type['plural'] . ' found.', 'rt-framework' ),
+					'not_found_in_trash' => __( 'No ' . $post_type['plural'] . ' found in Trash.', 'rt-framework' ),
+				];
+				$args   = [
 					'labels'             => $labels,
-					'public'             => true,
-					'publicly_queryable' => true,
-					'show_ui'            => true,
-					'show_in_menu'       => true,
-					'show_in_nav_menus'  => true,
-					'query_var'          => true,
-					'has_archive'        => true,
-					'hierarchical'       => false,
-					'menu_position'      => null,
-					'menu_icon'          => null,
-					'supports'           => array( 'title', 'thumbnail', 'editor' )
-				);
+					'description'        => __( $post_type['description'], 'rt-framework' ),
+					'public'             => $post_type['public'] ?? true,
+					'publicly_queryable' => $post_type['publicly_queryable'] ?? true,
+					'show_ui'            => $post_type['show_ui'] ?? true,
+					'show_in_menu'       => $post_type['show_in_menu'] ?? true,
+					'menu_icon'          => $post_type['menu_icon'],
+					'query_var'          => $post_type['query_var'] ?? true,
+					'rewrite'            => [ 'slug' => $post_type['slug'] ],
+					'capability_type'    => $post_type['capability_type'] ?? 'post',
+					'has_archive'        => $post_type['has_archive'] ?? true,
+					'hierarchical'       => $post_type['hierarchical'] ?? false,
+					'menu_position'      => $post_type['menu_position'],
+					'supports'           => $post_type['supports'],
+					'show_in_rest'       => $post_type['show_in_rest'] ?? true,
+				];
 
-				$args = wp_parse_args( $args, $defaults );
-				$this->post_types[ $post_type ] = $args;
+				$this->post_types[ $post_type['id'] ] = $args;
 			}
 		}
 
 		public function add_taxonomies( $taxonomies ) {
 
-			foreach ($taxonomies as $taxonomy => $args ) {
+			foreach ( $taxonomies as $taxonomy ) {
 
-				$title = $args['title'];
-				$plural_title = empty( $args['plural_title'] ) ? $title : $args['plural_title'];
-
-				$labels     = array(
-					'name'                       => $title,
-					'singular_name'              => $title,
-					'search_items'               => sprintf( esc_html__( 'Search %s', 'rt-framework' ), $plural_title ),
-					'popular_items'              => sprintf( esc_html__( 'Popular %s', 'rt-framework' ), $plural_title ),
-					'all_items'                  => sprintf( esc_html__( 'All %s', 'rt-framework' ), $plural_title ),
-					'parent_item'                => sprintf( esc_html__( 'Parent %s', 'rt-framework' ), $title ),
-					'parent_item_colon'          => sprintf( esc_html__( 'Parent %s:', 'rt-framework' ), $title ),
-					'edit_item'                  => sprintf( esc_html__( 'Edit %s', 'rt-framework' ), $title ),
-					'view_item'                  => sprintf( esc_html__( 'View %s', 'rt-framework' ), $title ),
-					'update_item'                => sprintf( esc_html__( 'Update %s', 'rt-framework' ), $title ),
-					'add_new_item'               => sprintf( esc_html__( 'Add New %s', 'rt-framework' ), $title ),
-					'new_item_name'              => sprintf( esc_html__( 'New %s Name', 'rt-framework' ), $title ),
-					'separate_items_with_commas' => sprintf( esc_html__( 'Separate %s with commas', 'rt-framework' ), $plural_title ),
-					'add_or_remove_items'        => sprintf( esc_html__( 'Add or remove %s', 'rt-framework' ), $plural_title ),
-					'choose_from_most_used'      => sprintf( esc_html__( 'Choose from the most used %s', 'rt-framework' ), $plural_title ),
-					'not_found'                  => sprintf( esc_html__( 'No %s found.', 'rt-framework' ), $plural_title ),
-					'no_terms'                   => sprintf( esc_html__( 'No %s', 'rt-framework' ), $plural_title ),
-					'items_list_navigation'      => sprintf( esc_html__( '%s list navigation', 'rt-framework' ), $plural_title ),
-					'items_list'                 => sprintf( esc_html__( '%s list', 'rt-framework' ), $plural_title ),
-					'back_to_items'              => sprintf( esc_html__( '&larr; Back to %s', 'rt-framework' ), $plural_title ),
-					'menu_name'                  => $plural_title,
-				);
-
-				if ( !empty( $args['labels_override'] ) ) {
-					$labels = wp_parse_args( $args['labels_override'], $labels );
-				}
-
-				$defaults = array(
-					'hierarchical'      => true,
-					'labels'            => $labels,
-					'show_in_nav_menus' => true,
-					'show_ui'           => null,
-					'show_admin_column' => true,
-					'query_var'         => true,
-					'rewrite'           => array( 'slug' => $taxonomy )
-				);
-
-				$args = wp_parse_args( $args, $defaults );
-				$this->taxonomies[ $taxonomy ] = $args;
+				$labels                        = [
+					'name'              => _x( $taxonomy['plural'], 'taxonomy general name', 'rt-framework' ),
+					'singular_name'     => _x( $taxonomy['singular'], 'taxonomy singular name', 'rt-framework' ),
+					'menu_name'         => _x( $taxonomy['plural'], 'admin menu', 'rt-framework' ),
+					'add_new_item'      => _x( 'Add New ' . $taxonomy['singular'], 'rt-framework' ),
+					'search_items'      => __( 'Search ' . $taxonomy['plural'], 'rt-framework' ),
+					'all_items'         => __( 'All ' . $taxonomy['plural'], 'rt-framework' ),
+					'parent_item'       => __( 'Parent ' . $taxonomy['singular'], 'rt-framework' ),
+					'parent_item_colon' => __( 'Parent ' . $taxonomy['singular'], 'rt-framework' ),
+					'edit_item'         => __( 'Edit ' . $taxonomy['singular'], 'rt-framework' ),
+					'update_item'       => __( 'Update ' . $taxonomy['singular'], 'rt-framework' ),
+					'new_item_name'     => __( 'New ' . $taxonomy['singular'], 'rt-framework' ),
+				];
+				$args                          = [
+					'labels'             => $labels,
+					'description'        => __( '', 'rt-framework' ),
+					'hierarchical'       => $taxonomy['hierarchical'] ?? true,
+					'public'             => $taxonomy['public'] ?? true,
+					'publicly_queryable' => $taxonomy['publicly_queryable'] ?? true,
+					'show_ui'            => $taxonomy['show_ui'] ?? true,
+					'show_in_menu'       => $taxonomy['show_in_menu'] ?? true,
+					'show_in_nav_menus'  => $taxonomy['show_in_nav_menus'] ?? true,
+					'show_tagcloud'      => $taxonomy['show_tagcloud'] ?? true,
+					'show_in_quick_edit' => $taxonomy['show_in_quick_edit'] ?? true,
+					'show_admin_column'  => $taxonomy['show_admin_column'] ?? false,
+					'show_in_rest'       => $taxonomy['show_in_rest'] ?? true,
+					'post_type'          => $taxonomy['post_type']
+				];
+				$this->taxonomies[ $taxonomy['id'] ] = $args;
 			}
 		}
 
@@ -150,7 +118,9 @@ if( !class_exists( 'RT_Posts' ) ){
 		private function register_taxonomies() {
 			$taxonomies = apply_filters( 'rt_framework_taxonomies', $this->taxonomies );
 			foreach ( $taxonomies as $taxonomy => $args ) {
-				register_taxonomy( $taxonomy, $args['post_types'], $args );
+				$post_type = $args['post_type'];
+				unset( $args['post_type'] );
+				register_taxonomy( $taxonomy, $post_type, $args );
 			}
 		}
 	}
