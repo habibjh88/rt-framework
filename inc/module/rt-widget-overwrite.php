@@ -1,4 +1,7 @@
 <?php
+
+use RT\Newsfit\Helpers\Fns;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -61,7 +64,7 @@ if ( ! class_exists( 'Rt_Widgets_Overwrite' ) ) {
                     display: none;
                 }
 
-                [data-widget-area-id="rt-footer-sidebar"] .rt-widget-custom-cols {
+                [data-widget-area-id="<?php echo esc_attr(Fns::sidebar( 'footer' )) ?>"] .rt-widget-custom-cols {
                     display: block !important;
                 }
             </style>
