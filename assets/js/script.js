@@ -265,19 +265,19 @@
 
     jQuery(document).ready(function ($) {
 
-       /* var checkSlectVal =  $('.rt-header-footer-select').val()
-        if (checkSlectVal.includes('custom')) {
-            $('.rt_el_builder_meta-choose_post').show();
-        }
-        $('.rt-header-footer-select').on("change", function (event) {
-            var selectValue = $(this).val();
-            if (selectValue.includes('custom')) {
-                $(this).closest('tr').next().show();
-            } else {
-                $(this).closest('tr').next().hide();
-            }
-        });
-*/
+        /* var checkSlectVal =  $('.rt-header-footer-select').val()
+         if (checkSlectVal.includes('custom')) {
+             $('.rt_el_builder_meta-choose_post').show();
+         }
+         $('.rt-header-footer-select').on("change", function (event) {
+             var selectValue = $(this).val();
+             if (selectValue.includes('custom')) {
+                 $(this).closest('tr').next().show();
+             } else {
+                 $(this).closest('tr').next().hide();
+             }
+         });
+ */
         $(".rt-multiple-select2-ajax").select2({
             ajax: {
                 url: rtFramwork.rest_url + "rt/v1/all-posts",

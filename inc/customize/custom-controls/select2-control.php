@@ -57,11 +57,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			if ( $this->multiselect ) {
 				$defaultValue = explode( ',', $this->value() );
 
-
 				if ( ! empty( $defaultValue ) ) {
 					$new_choices = [];
 					foreach ( $defaultValue as $item ) {
-						if ( ! $item || ! in_array($item, array_keys($choices)) ) {
+						if ( ! $item || ! in_array( $item, array_keys( $choices ) ) ) {
 							continue;
 						}
 						$new_choices[ $item ] = $this->choices[ $item ];
@@ -79,19 +78,19 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			}
 
 			?>
-            <div class="dropdown_select2_control">
+			<div class="dropdown_select2_control">
 				<?php if ( ! empty( $this->label ) ) { ?>
-                    <label for="<?php echo esc_attr( $this->id ); ?>" class="customize-control-title">
+					<label for="<?php echo esc_attr( $this->id ); ?>" class="customize-control-title">
 						<?php echo esc_html( $this->label ); ?>
-                    </label>
+					</label>
 				<?php } ?>
 				<?php if ( ! empty( $this->description ) ) { ?>
-                    <span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+					<span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
 				<?php } ?>
-                <input type="hidden" id="<?php echo esc_attr( $this->id ); ?>" class="customize-control-dropdown-select2" value="<?php echo esc_attr( $this->value() ); ?>"
-                       name="<?php echo esc_attr( $this->id ); ?>" <?php $this->link(); ?> />
-                <select name="select2-list-<?php echo esc_attr( $this->multiselect ? 'multi[]' : 'single' ); ?>" class="customize-control-select2"
-                        data-placeholder="<?php echo esc_attr( $this->placeholder ); ?>" <?php echo esc_attr( $this->multiselect ? 'multiple="multiple" ' : '' ); ?>>
+				<input type="hidden" id="<?php echo esc_attr( $this->id ); ?>" class="customize-control-dropdown-select2" value="<?php echo esc_attr( $this->value() ); ?>"
+					   name="<?php echo esc_attr( $this->id ); ?>" <?php $this->link(); ?> />
+				<select name="select2-list-<?php echo esc_attr( $this->multiselect ? 'multi[]' : 'single' ); ?>" class="customize-control-select2"
+						data-placeholder="<?php echo esc_attr( $this->placeholder ); ?>" <?php echo esc_attr( $this->multiselect ? 'multiple="multiple" ' : '' ); ?>>
 					<?php
 					if ( ! $this->multiselect ) {
 						// When using Select2 for single selection, the Placeholder needs an empty <option> at the top of the list for it to work (multi-selects dont need this)
@@ -103,7 +102,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 							echo '<optgroup label="' . esc_attr( $key ) . '">';
 							foreach ( $value as $optgroupkey => $optgroupvalue ) {
 								echo '<option value="' . esc_attr( $optgroupkey ) . '" ' . ( in_array( esc_attr( $optgroupkey ), $defaultValue ) ? 'selected="selected"' : '' )
-								     . '>' . esc_attr( $optgroupvalue ) . '</option>';
+									 . '>' . esc_attr( $optgroupvalue ) . '</option>';
 							}
 							echo '</optgroup>';
 						} else {
@@ -111,15 +110,14 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 							if ( in_array( $key, $defaultValue ) ) {
 								$selected = 'selected';
 							}
-							//selected( esc_attr( $key ), $defaultValue, false )
+							// selected( esc_attr( $key ), $defaultValue, false )
 							echo '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . esc_attr( $value ) . '</option>';
 						}
 					}
 					?>
-                </select>
-            </div>
+				</select>
+			</div>
 			<?php
 		}
-
 	}
 }

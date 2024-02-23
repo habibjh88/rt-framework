@@ -88,21 +88,21 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 			if ( ! empty( $this->fontList ) ) {
 				?>
-                <div class="google_fonts_select_control">
+				<div class="google_fonts_select_control">
 					<?php if ( ! empty( $this->label ) ) { ?>
-                        <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+						<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 					<?php } ?>
 					<?php if ( ! empty( $this->description ) ) { ?>
-                        <span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+						<span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
 					<?php } ?>
-                    <input type="hidden" id="<?php echo esc_attr( $this->id ); ?>"
-                           name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $this->value() ); ?>"
-                           class="customize-control-google-font-selection" <?php $this->link(); ?> />
-                    <div class="google-fonts">
-                        <select class="google-fonts-list" control-name="<?php echo esc_attr( $this->id ); ?>">
+					<input type="hidden" id="<?php echo esc_attr( $this->id ); ?>"
+						   name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $this->value() ); ?>"
+						   class="customize-control-google-font-selection" <?php $this->link(); ?> />
+					<div class="google-fonts">
+						<select class="google-fonts-list" control-name="<?php echo esc_attr( $this->id ); ?>">
 							<?php
 							foreach ( $this->fontList as $key => $value ) {
-								$fontCounter ++;
+								$fontCounter++;
 								$fontListStr .= '<option value="' . $value->family . '" ' . selected( $this->fontValues->font, $value->family, false ) . '>' . $value->family . '</option>';
 								if ( $this->fontValues->font === $value->family ) {
 									$isFontInList = true;
@@ -116,15 +116,15 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 								$fontListStr = '<option value="' . $this->fontList[ $this->fontListIndex ]->family . '" ' . selected( $this->fontValues->font, $this->fontList[ $this->fontListIndex ]->family, false ) . '>' . $this->fontList[ $this->fontListIndex ]->family . ' (default)</option>' . $fontListStr;
 							}
 							// Display our list of font options
-							printf( "%s", $fontListStr );
+							printf( '%s', $fontListStr );
 							?>
-                        </select>
-                    </div>
+						</select>
+					</div>
 
-                    <div class="weight-style">
-                        <div class="google-font-style-wrap">
-                            <div class="customize-control-description"><?php echo esc_html__( "Font weight", "rt-framework" ); ?></div>
-                            <select class="google-fonts-regularweight-style">
+					<div class="weight-style">
+						<div class="google-font-style-wrap">
+							<div class="customize-control-description"><?php echo esc_html__( 'Font weight', 'rt-framework' ); ?></div>
+							<select class="google-fonts-regularweight-style">
 								<?php
 								foreach ( $this->fontList[ $this->fontListIndex ]->variants as $key => $value ) {
 									if ( $value == 'regular' ) {
@@ -133,22 +133,22 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 									echo '<option value="' . $value . '" ' . selected( $this->fontValues->regularweight, $value, false ) . '>' . $value . '</option>';
 								}
 								?>
-                            </select>
-                        </div>
+							</select>
+						</div>
 
-                        <div class="google-font-style-wrap">
-                            <div class="customize-control-description"><?php echo esc_html__( "Font Size", "rt-framework" ); ?></div>
-                            <input type="number" class="google-font-size google-font-style" value="<?php echo $this->fontValues->size ?>">
-                            <span><?php echo esc_html__( "px", "rt-framework" ) ?></span>
-                        </div>
+						<div class="google-font-style-wrap">
+							<div class="customize-control-description"><?php echo esc_html__( 'Font Size', 'rt-framework' ); ?></div>
+							<input type="number" class="google-font-size google-font-style" value="<?php echo $this->fontValues->size; ?>">
+							<span><?php echo esc_html__( 'px', 'rt-framework' ); ?></span>
+						</div>
 
-                        <div class="google-font-style-wrap">
-                            <div class="customize-control-description"><?php echo esc_html__( "Line Height", "rt-framework" ) ?></div>
-                            <input type="number" class="google-font-line-height google-font-style" value="<?php echo $this->fontValues->lineheight ?>">
-                            <span><?php echo esc_html__( "px", "rt-framework" ) ?></span>
-                        </div>
-                    </div>
-                </div>
+						<div class="google-font-style-wrap">
+							<div class="customize-control-description"><?php echo esc_html__( 'Line Height', 'rt-framework' ); ?></div>
+							<input type="number" class="google-font-line-height google-font-style" value="<?php echo $this->fontValues->lineheight; ?>">
+							<span><?php echo esc_html__( 'px', 'rt-framework' ); ?></span>
+						</div>
+					</div>
+				</div>
 				<?php
 			}
 		}
@@ -164,7 +164,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			}
 
 			return false;
-
 		}
 
 		/**
@@ -174,13 +173,13 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			// Google Fonts json generated from https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=YOUR-API-KEY
 
 			$_font_path   = apply_filters( 'rt_framework_customizer_fonts', 'url' );
-			$body_content = "";
+			$body_content = '';
 
 			if ( $_font_path === 'url' ) {
 				$fontFile = RT_FRAMEWORK_DIR_URL . '/inc/customize/custom-controls/typography/google-fonts/google-fonts-popularity.json';
 				$request  = wp_remote_get( $fontFile );
 				if ( is_wp_error( $request ) ) {
-					return "";
+					return '';
 				}
 
 				$body_content = wp_remote_retrieve_body( $request );

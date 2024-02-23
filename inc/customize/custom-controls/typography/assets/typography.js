@@ -83,7 +83,7 @@ jQuery(document).ready(function ($) {
         rtthemeGetAllSelects($(this).closest('.google_fonts_select_control'));
     });
 
-    $('.google_fonts_select_control input[type=number]').on('input', function (){
+    $('.google_fonts_select_control input[type=number]').on('input', function () {
         rtthemeGetAllSelects($(this).closest('.google_fonts_select_control'));
     })
 

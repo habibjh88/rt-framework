@@ -14,18 +14,16 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 		public function render_content() {
 			?>
-            <div class="rt-framework-custom-headding">
+			<div class="rt-framework-custom-headding">
 				<?php
 				if ( isset( $this->label ) && '' !== $this->label ) {
 					echo '<span class="customize-control-heading">' . sanitize_text_field( $this->label ) . '</span>';
 				}
 				?>
-                <input class="wp-editor-area" id="<?php echo esc_attr( $this->id ); ?>" type="text" <?php $this->link(); ?> value="<?php echo esc_attr( $this->value() ); ?>">
+				<input class="wp-editor-area" id="<?php echo esc_attr( $this->id ); ?>" type="text" <?php $this->link(); ?> value="<?php echo esc_attr( $this->value() ); ?>">
 
-            </div>
+			</div>
 			<?php
 		}
-
-
 	}
 }

@@ -10,15 +10,15 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 	class RT_Postmeta {
 
 		protected static $instance = null;
-		public $version = RT_FRAMEWORK_VERSION;
+		public $version            = RT_FRAMEWORK_VERSION;
 
-		protected $fields_obj = null;
-		public $base_url = null;
-		private $metaboxes = [];
+		protected $fields_obj   = null;
+		public $base_url        = null;
+		private $metaboxes      = [];
 		private $metabox_fields = [];
 
 		public $nonce_action = 'rt_metabox_nonce';
-		public $nonce_field = 'rt_metabox_nonce_secret';
+		public $nonce_field  = 'rt_metabox_nonce_secret';
 
 		private function __construct() {
 			$this->fields_obj = new RT_Postmeta_Fields();
@@ -28,7 +28,7 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 
 		public static function getInstance() {
 			if ( null == self::$instance ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 
 			return self::$instance;
@@ -56,17 +56,25 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			wp_enqueue_script( 'jquery-timepicker', $this->base_url . 'assets/js/jquery.timepicker.min.js', [ 'jquery' ], $this->version );
 			wp_enqueue_script( 'select2', $this->base_url . 'assets/js/select2.min.js', [ 'jquery' ], $this->version );
 			wp_enqueue_media();
-			wp_enqueue_script( 'rt-posts-script', $this->base_url . 'assets/js/script.js', [ 'jquery', 'jquery-ui-core', 'wp-color-picker', 'jquery-ui-datepicker' ],
-				$this->version );
-			wp_localize_script( 'rt-posts-script', 'rtFramwork', [
-				'nonce'    => wp_create_nonce( 'wp_rest' ),
-				'ajaxurl'  => admin_url( 'admin-ajax.php' ),
-				'rest_url' => esc_url_raw( rest_url() )
-			] );
+			wp_enqueue_script(
+				'rt-posts-script',
+				$this->base_url . 'assets/js/script.js',
+				[ 'jquery', 'jquery-ui-core', 'wp-color-picker', 'jquery-ui-datepicker' ],
+				$this->version
+			);
+			wp_localize_script(
+				'rt-posts-script',
+				'rtFramwork',
+				[
+					'nonce'    => wp_create_nonce( 'wp_rest' ),
+					'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+					'rest_url' => esc_url_raw( rest_url() ),
+				]
+			);
 		}
 
 		public function get_base_url() {
-			$file = dirname( dirname( __FILE__ ) );
+			$file = dirname( __DIR__ );
 
 			// Get correct URL and path to wp-content
 			$content_url = untrailingslashit( dirname( dirname( get_stylesheet_directory_uri() ) ) );
@@ -172,19 +180,19 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			return $data;
 		}
 
-//		public function filter_empty( $data ) {
-//			return array_filter( $data );
-//		}
+		// public function filter_empty( $data ) {
+		// return array_filter( $data );
+		// }
 
 		public function sanitize_repeater_field( $data, $type ) {
 			unset( $data['hidden'] ); // unset hidden
 			foreach ( $data as $key => $value ) {
 				foreach ( $value as $key2 => $value2 ) {
-					$fieldtype             = $type[ $key2 ]["type"];
+					$fieldtype             = $type[ $key2 ]['type'];
 					$data[ $key ][ $key2 ] = $this->sanitize_field( $data[ $key ][ $key2 ], $fieldtype );
 				}
 			}
-			$data = array_values( $data ); //rearrange
+			$data = array_values( $data ); // rearrange
 
 			return $data;
 		}
@@ -214,7 +222,6 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 
 			return $data;
 		}
-
 	}
 }
 

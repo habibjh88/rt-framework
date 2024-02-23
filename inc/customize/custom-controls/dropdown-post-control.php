@@ -33,20 +33,21 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function render_content() {
 			?>
-            <div class="dropdown_posts_control">
+			<div class="dropdown_posts_control">
 				<?php if ( ! empty( $this->label ) ) { ?>
-                    <label for="<?php echo esc_attr( $this->id ); ?>" class="customize-control-title">
+					<label for="<?php echo esc_attr( $this->id ); ?>" class="customize-control-title">
 						<?php echo esc_html( $this->label ); ?>
-                    </label>
+					</label>
 				<?php } ?>
 				<?php if ( ! empty( $this->description ) ) { ?>
-                    <span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+					<span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
 				<?php } ?>
-                <select name="<?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>" <?php esc_url( $this->link() ); ?>>
+				<select name="<?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>" <?php esc_url( $this->link() ); ?>>
 					<?php
 					if ( ! empty( $this->posts ) ) {
 						foreach ( $this->posts as $post ) {
-							printf( '<option value="%s" %s>%s</option>',
+							printf(
+								'<option value="%s" %s>%s</option>',
 								$post->ID,
 								selected( $this->value(), $post->ID, false ),
 								$post->post_title
@@ -54,10 +55,9 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						}
 					}
 					?>
-                </select>
-            </div>
+				</select>
+			</div>
 			<?php
 		}
-
 	}
 }

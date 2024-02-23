@@ -9,8 +9,8 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 	class RT_Posts {
 
 		protected static $instance = null;
-		private $post_types = [];
-		private $taxonomies = [];
+		private $post_types        = [];
+		private $taxonomies        = [];
 
 		private function __construct() {
 			add_action( 'init', [ $this, 'initialize' ] );
@@ -18,7 +18,7 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 
 		public static function getInstance() {
 			if ( null == self::$instance ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 
 			return self::$instance;
@@ -76,7 +76,7 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 
 			foreach ( $taxonomies as $taxonomy ) {
 
-				$labels                        = [
+				$labels                              = [
 					'name'              => _x( $taxonomy['plural'], 'taxonomy general name', 'rt-framework' ),
 					'singular_name'     => _x( $taxonomy['singular'], 'taxonomy singular name', 'rt-framework' ),
 					'menu_name'         => _x( $taxonomy['plural'], 'admin menu', 'rt-framework' ),
@@ -89,7 +89,7 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 					'update_item'       => __( 'Update ' . $taxonomy['singular'], 'rt-framework' ),
 					'new_item_name'     => __( 'New ' . $taxonomy['singular'], 'rt-framework' ),
 				];
-				$args                          = [
+				$args                                = [
 					'labels'             => $labels,
 					'description'        => __( '', 'rt-framework' ),
 					'hierarchical'       => $taxonomy['hierarchical'] ?? true,
@@ -102,7 +102,7 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 					'show_in_quick_edit' => $taxonomy['show_in_quick_edit'] ?? true,
 					'show_admin_column'  => $taxonomy['show_admin_column'] ?? false,
 					'show_in_rest'       => $taxonomy['show_in_rest'] ?? true,
-					'post_type'          => $taxonomy['post_type']
+					'post_type'          => $taxonomy['post_type'],
 				];
 				$this->taxonomies[ $taxonomy['id'] ] = $args;
 			}

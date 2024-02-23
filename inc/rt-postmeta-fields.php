@@ -335,7 +335,8 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		}
 
 		/**
-         * Gallery field
+		 * Gallery field
+		 *
 		 * @param $key
 		 * @param $field
 		 * @param $default
