@@ -64,7 +64,7 @@ if ( ! class_exists( 'Rt_Widgets_Overwrite' ) ) {
                     display: none;
                 }
 
-                [data-widget-area-id="<?php echo esc_attr(Fns::sidebar( 'footer' )) ?>"] .rt-widget-custom-cols {
+                [data-widget-area-id="<?php echo esc_attr(Fns::default_sidebar( 'footer' )) ?>"] .rt-widget-custom-cols {
                     display: block !important;
                 }
             </style>
