@@ -10,15 +10,16 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 	class RT_Postmeta {
 
 		protected static $instance = null;
-		public $version            = RT_FRAMEWORK_VERSION;
+		public $version = RT_FRAMEWORK_VERSION;
 
-		protected $fields_obj   = null;
-		public $base_url        = null;
-		private $metaboxes      = [];
+		protected $fields_obj = null;
+		public $base_url = null;
+		private $metaboxes = [];
 		private $metabox_fields = [];
+		private $metabox_condition = [];
 
 		public $nonce_action = 'rt_metabox_nonce';
-		public $nonce_field  = 'rt_metabox_nonce_secret';
+		public $nonce_field = 'rt_metabox_nonce_secret';
 
 		private function __construct() {
 			$this->fields_obj = new RT_Postmeta_Fields();
@@ -26,6 +27,11 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			add_action( 'init', [ $this, 'initialize' ], 12 );
 		}
 
+		/**
+		 * Singleton instance
+		 *
+		 * @return self|null
+		 */
 		public static function getInstance() {
 			if ( null == self::$instance ) {
 				self::$instance = new self();
@@ -34,6 +40,11 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Initialize
+		 *
+		 * @return void
+		 */
 		public function initialize() {
 			if ( ! is_admin() ) {
 				return;
@@ -44,6 +55,11 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			add_action( 'save_post', [ $this, 'save_metaboxes' ] );
 		}
 
+		/**
+		 * Load necessary CSS and JS
+		 *
+		 * @return void
+		 */
 		public function load_styles_and_scripts() {
 			wp_enqueue_style( 'rt-posts-jqui', $this->base_url . 'assets/css/jquery-ui.css', [], $this->version ); // only datepicker
 			wp_enqueue_style( 'wp-color-picker' );
@@ -73,6 +89,11 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			);
 		}
 
+		/**
+		 * Get base URL
+		 *
+		 * @return array|string|string[]
+		 */
 		public function get_base_url() {
 			$file = dirname( __DIR__ );
 
@@ -89,6 +110,19 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			return $url;
 		}
 
+		/**
+		 * Collect metabox fields
+		 *
+		 * @param $id
+		 * @param $title
+		 * @param $post_types
+		 * @param $callback
+		 * @param $context
+		 * @param $priority
+		 * @param $fields
+		 *
+		 * @return void
+		 */
 		public function add_meta_box( $id, $title, $post_types, $callback = '', $context = '', $priority = '', $fields = '' ) {
 			$fields    = apply_filters( 'rt_postmeta_field_' . $id, $fields );
 			$metaboxes = [
@@ -102,8 +136,34 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 
 			$this->metaboxes[ $id ]      = apply_filters( 'rt_metabox_' . $id, $metaboxes );
 			$this->metabox_fields[ $id ] = $fields['fields'];
+			$this->find_conditional_fields( $fields['fields'] );
 		}
 
+		/**
+		 * Get conditional fields id
+		 *
+		 * @param $fields
+		 * @param $metabox_condition
+		 *
+		 * @return void
+		 */
+		public function find_conditional_fields( $fields ) {
+			foreach ( $fields as $field_id => $field ) {
+				if ( 'group' == $field['type'] ) {
+					$this->find_conditional_fields( $field['value'] );
+				} elseif ( isset( $field['required'] ) ) {
+					if ( ! in_array( $field['required'][0], $this->metabox_condition ) ) {
+						$this->metabox_condition[] = $field['required'][0];
+					}
+				}
+			}
+		}
+
+		/**
+		 * Register meta boxes
+		 *
+		 * @return void
+		 */
 		public function register_meta_boxes() {
 			foreach ( $this->metaboxes as $metabox_id => $args ) {
 				add_meta_box(
@@ -118,12 +178,27 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			}
 		}
 
+		/**
+		 * Display Metabox
+		 *
+		 * @param $post
+		 * @param $metabox
+		 *
+		 * @return void
+		 */
 		public function display_metaboxes( $post, $metabox ) {
 			$fields = $metabox['args']['fields'];
 			wp_nonce_field( $this->nonce_action, $this->nonce_field );
-			$this->fields_obj->display_fields( $fields, $post->ID );
+			$this->fields_obj->display_fields( $fields, $post->ID, $this->metabox_condition );
 		}
 
+		/**
+		 * Save metabox values
+		 *
+		 * @param $post_id
+		 *
+		 * @return mixed|void
+		 */
 		public function save_metaboxes( $post_id ) {
 			if ( empty( $_POST[ $this->nonce_field ] ) || ! check_admin_referer( $this->nonce_action, $this->nonce_field ) ) {
 				return $post_id;
@@ -142,6 +217,16 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			}
 		}
 
+
+		/**
+		 * Save single meta value
+		 *
+		 * @param $field
+		 * @param $data
+		 * @param $post_id
+		 *
+		 * @return void
+		 */
 		public function save_single_meta( $field, $data, $post_id ) {
 			if ( isset( $_POST[ $field ] ) ) {
 				$old = get_post_meta( $post_id, $field, true );
@@ -170,6 +255,14 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			}
 		}
 
+		/**
+		 * Sanitize Group meta fields
+		 *
+		 * @param $data
+		 * @param $type
+		 *
+		 * @return mixed
+		 */
 		public function sanitize_group_field( $data, $type ) {
 			foreach ( $type as $key => $value ) {
 				if ( isset( $data[ $key ] ) ) {
@@ -180,10 +273,14 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			return $data;
 		}
 
-		// public function filter_empty( $data ) {
-		// return array_filter( $data );
-		// }
-
+		/**
+		 * Sanitize repeater fields
+		 *
+		 * @param $data
+		 * @param $type
+		 *
+		 * @return array
+		 */
 		public function sanitize_repeater_field( $data, $type ) {
 			unset( $data['hidden'] ); // unset hidden
 			foreach ( $data as $key => $value ) {
@@ -197,6 +294,14 @@ if ( ! class_exists( 'RT_Postmeta' ) ) {
 			return $data;
 		}
 
+		/**
+		 * Sanitize meta fields
+		 *
+		 * @param $data
+		 * @param $type
+		 *
+		 * @return array|string|null
+		 */
 		public function sanitize_field( $data, $type ) {
 			switch ( $type ) {
 				case 'multi_checkbox':

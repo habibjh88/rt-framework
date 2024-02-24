@@ -21,17 +21,8 @@
         $(".rt-postmeta-container .rt-postmeta-dependent").each(function () {
             var name = $(this).data('required');
             var value = $(this).data('required-value');
-
-            var $input = $("input[name=" + name + "]");
-            var inputType = $input.attr('type');
-
-            var fieldValue = null;
-
-            // radio
-            if (inputType == 'radio') {
-                fieldValue = $("input[name=" + name + "]:checked").val();
-            }
-
+            let newName = name.replace(/\[/g, '\\[').replace(/\]/g, '\\]');
+            var fieldValue = $(".rtfm-meta-field[name=" + newName + "]").val();
             //action
             if (value != fieldValue) {
                 $(this).hide();
@@ -39,7 +30,7 @@
         });
 
         // radio field onchange conditional
-        $(".rt-postmeta-container input[type=radio]").on('change', function () {
+        $(".rt-postmeta-container .has-condition .rtfm-meta-field").on('change', function () {
             var name = $(this).attr('name');
             var value = $(this).val();
 
@@ -57,6 +48,47 @@
 
         });
 
+        /*
+
+ $(".rt-postmeta-container .rt-postmeta-dependent").each(function () {
+            var name = $(this).data('required');
+            var value = $(this).data('required-value');
+
+            var $input = $("input[name=" + name + "]");
+            var inputType = $input.attr('type');
+
+            var fieldValue = null;
+
+            // radio
+            if (inputType == 'radio') {
+                fieldValue = $("input[name=" + name + "]:checked").val();
+            }
+
+            //action
+            if (value != fieldValue) {
+                $(this).hide();
+            }
+        });
+
+
+        $(".rt-postmeta-container input[type=radio]").on('change', function () {
+            var name = $(this).attr('name');
+            var value = $(this).val();
+
+            // hide
+            $('.rt-postmeta-container tr[data-required="' + name + '"]')
+                .filter(function () {
+                    return $(this).data("required-value") != value;
+                }).hide();
+
+            // show
+            $('.rt-postmeta-container tr[data-required="' + name + '"]')
+                .filter(function () {
+                    return $(this).data("required-value") == value;
+                }).show();
+
+        });
+*/
         /*Repeater*/
 
         // Generate close button

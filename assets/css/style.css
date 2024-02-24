@@ -29,6 +29,9 @@
     height: 70px;
 }
 
+.rt-postmeta-container .rtfm-meta-field {
+    min-width: 300px;
+}
 .rt-postmeta-radio {
     padding-right: 15px;
 }
