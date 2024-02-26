@@ -1296,20 +1296,20 @@ Upsell Section
     color: red;
 }
 
-#customize-control-newsfit_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__choice {
+#customize-control-rtfm_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__choice {
     display: block;
     float: none;
     padding: 4px 10px;
     cursor: move;
 }
 
-#customize-control-newsfit_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+#customize-control-rtfm_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
     float: none;
     padding-right: 5px;
 
 }
 
-#customize-control-newsfit_blog_meta .select2-container--default .select2-search--inline .select2-search__field {
+#customize-control-rtfm_blog_meta .select2-container--default .select2-search--inline .select2-search__field {
     width: 100% !important;
     border: 1px solid #ddd;
     padding-left: 5px;

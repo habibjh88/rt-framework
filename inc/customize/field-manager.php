@@ -26,14 +26,14 @@ class FieldManager {
 	public function __construct( $wp_customize, $fields, $fields_group ) {
 		self::add_customizer_fields( $wp_customize, $fields );
 		self::add_customizer_fields_group( $wp_customize, $fields_group );
-		// add_action( 'customize_preview_init', [ $this, 'newsfit_customizer_live_preview' ] );
+		// add_action( 'customize_preview_init', [ $this, 'rtfm_customizer_live_preview' ] );
 		add_action( 'customize_controls_enqueue_scripts', [ $this, 'customizer_switch_select_control_script' ] );
 	}
 
 
 	public static function customizer_switch_select_control_script() {
-		wp_enqueue_script( 'newsfit-customizer-condition', RT_FRAMEWORK_DIR_URL . '/assets/js/customizer-condition.js', [ 'jquery', 'customize-controls' ], '1.0', true );
-		wp_localize_script( 'newsfit-customizer-condition', 'rtCustomizeObj', self::$conditions );
+		wp_enqueue_script( 'rtfm-customizer-condition', RT_FRAMEWORK_DIR_URL . '/assets/js/customizer-condition.js', [ 'jquery', 'customize-controls' ], '1.0', true );
+		wp_localize_script( 'rtfm-customizer-condition', 'rtCustomizeObj', self::$conditions );
 	}
 
 	public static function add_customizer_fields( $wp_customize, $fields ) {

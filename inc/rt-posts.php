@@ -32,7 +32,6 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 		public function add_post_types( $post_types ) {
 
 			foreach ( $post_types as $post_type ) {
-
 				$labels = [
 					'name'               => _x( $post_type['plural'], 'post type general name', 'rt-framework' ),
 					'singular_name'      => _x( $post_type['singular'], 'post type singular name', 'rt-framework' ),

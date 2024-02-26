@@ -241,7 +241,7 @@ jQuery(document).ready(function ($) {
                     return state.text;
                 }
                 var $state = $(
-                    '<span data-id="' + state.id + '" class="newsfit-select-item">' + state.text + '</span>'
+                    '<span data-id="' + state.id + '" class="rtfm-select-item">' + state.text + '</span>'
                 );
                 return $state;
             }
@@ -257,7 +257,7 @@ jQuery(document).ready(function ($) {
             var selectedValues = [];
             $(this).find("li").each(function () {
                 // var value = $(this).attr("title");
-                var value = $(this).find('.newsfit-select-item').attr("data-id");
+                var value = $(this).find('.rtfm-select-item').attr("data-id");
                 selectedValues.push(value);
             });
 
