@@ -357,17 +357,18 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 		 * @return void
 		 */
 		public function gallery( $key, $field, $default, $class ) {
-			$disstyle = $img_html = ''; // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.Found
+			$disstyle = $img_html = '';
 
 			if ( $default ) {
 				$img_ids = explode( ',', $default );
 				foreach ( $img_ids as $img_id ) {
-					if ( ! ( $img_id > 0 ) ) {
+					if(! ($img_id > 0)) {
 						continue;
 					}
-					$image    = wp_get_attachment_image_src( $img_id, 'medium' );
-					$image    = $image[0];
-					$img_html .= '<img src="' . esc_url( $image ) . '" alt="" />';
+					$image      = wp_get_attachment_image_src( $img_id );
+					$image_full = wp_get_attachment_image_src( $img_id, 'full' );
+					$image      = $image[0] ?? $image_full[0];
+					$img_html   .= '<img src="' . esc_url( $image ) . '" alt="" />';
 				}
 			} else {
 				$disstyle = 'display:none;';

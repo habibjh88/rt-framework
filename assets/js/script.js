@@ -165,13 +165,62 @@
         });
 
         // Gallery upload field
-        var rtMetaGalleryFrame = wp.media({multiple: true});
+        var rtMetaGalleryFrame;
         var rtMetaGalleryBtn;
 
         $("body").on('click', '.rt_upload_gallery', function (event) {
             rtMetaGalleryBtn = $(this);
+            if (rtMetaGalleryFrame) {
+                rtMetaGalleryFrame.open();
+                return false;
+            }
+
+            rtMetaGalleryFrame = wp.media({
+                title: "Select Image",
+                button: {
+                    text: "Insert Image"
+                },
+                multiple: true
+            });
+
+            rtMetaGalleryFrame.on("select", function () {
+                var selection = rtMetaGalleryFrame.state().get('selection');
+                var existing_ids = rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_upload_image").val();
+                var ids = [];
+                if(existing_ids) {
+                    ids = rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_upload_image").val().split(',');
+                }
+
+                //rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_preview_images").html('');
+
+                selection.map(function (attachment) {
+                    attachment = attachment.toJSON();
+                    ids.push(attachment.id);
+                    rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_preview_images").append("<img src=" + attachment.sizes.thumbnail.url + ">");
+                });
+
+                rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_upload_image").val(ids);
+                rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".rt_remove_gallery").show();
+            });
+
             rtMetaGalleryFrame.open();
+            return false;
         });
+
+
+        /*
+            rtMetaGalleryFrame.on('open', function (event) {
+                var selection = rtMetaGalleryFrame.state().get('selection');
+                var ids = rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_upload_image").val().split(',');
+
+                ids.forEach(function (id) {
+                    var attachment = wp.media.attachment(id);
+                    attachment.fetch();
+                    selection.add(attachment ? [attachment] : []);
+                });
+            });*/
+
+
         $("body").on('click', '.rt_remove_gallery', function (event) {
             event.preventDefault();
             $(this).closest(".rt_metabox_gallery").find(".custom_upload_image").val("");
@@ -180,32 +229,6 @@
             return false;
         });
 
-        rtMetaGalleryFrame.on("select", function () {
-            var selection = rtMetaGalleryFrame.state().get('selection');
-            var ids = [];
-
-            rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_preview_images").html('');
-
-            selection.map(function (attachment) {
-                attachment = attachment.toJSON();
-                ids.push(attachment.id);
-                rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_preview_images").append("<img src=" + attachment.url + ">");
-            });
-
-            rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_upload_image").val(ids);
-            rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".rt_remove_gallery").show();
-        });
-
-        rtMetaGalleryFrame.on('open', function (event) {
-            var selection = rtMetaGalleryFrame.state().get('selection');
-            var ids = rtMetaGalleryBtn.closest(".rt_metabox_gallery").find(".custom_upload_image").val().split(',');
-
-            ids.forEach(function (id) {
-                var attachment = wp.media.attachment(id);
-                attachment.fetch();
-                selection.add(attachment ? [attachment] : []);
-            });
-        });
 
         // File upload field
         $("body").on('click', '.rt_upload_file', function (event) {
@@ -214,6 +237,7 @@
                 multiple: false
             }).on("select", function () {
                 var attachment = custom_uploader.state().get("selection").first().toJSON();
+                console.log(attachment);
                 btnClicked.closest(".rt_metabox_file").find(".custom_upload_file").val(attachment.id);
                 btnClicked.closest(".rt_metabox_file").find(".custom_preview_file").attr("href", attachment.url).html(attachment.title).show();
                 btnClicked.closest(".rt_metabox_file").find(".rt_remove_file_wrap").show();
