@@ -12,10 +12,18 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 		private $post_types        = [];
 		private $taxonomies        = [];
 
+		/**
+		 * Class Constructor
+		 */
 		private function __construct() {
 			add_action( 'init', [ $this, 'initialize' ] );
 		}
 
+		/**
+		 * CLass instance
+		 *
+		 * @return self|null
+		 */
 		public static function getInstance() {
 			if ( null == self::$instance ) {
 				self::$instance = new self();
@@ -24,11 +32,23 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Initialize function
+		 *
+		 * @return void
+		 */
 		public function initialize() {
 			$this->register_taxonomies();
 			$this->register_custom_post_types();
 		}
 
+		/**
+		 * Add post types
+		 *
+		 * @param $post_types
+		 *
+		 * @return void
+		 */
 		public function add_post_types( $post_types ) {
 
 			foreach ( $post_types as $post_type ) {
@@ -71,6 +91,13 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 			}
 		}
 
+		/**
+		 * Add Taxonomies list
+		 *
+		 * @param $taxonomies
+		 *
+		 * @return void
+		 */
 		public function add_taxonomies( $taxonomies ) {
 
 			foreach ( $taxonomies as $taxonomy ) {
@@ -107,6 +134,11 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 			}
 		}
 
+		/**
+		 * Register custom post type
+		 *
+		 * @return void
+		 */
 		private function register_custom_post_types() {
 			$post_types = apply_filters( 'rt_framework_post_types', $this->post_types );
 			foreach ( $post_types as $post_type => $args ) {
@@ -114,6 +146,11 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 			}
 		}
 
+		/**
+		 * Register Taqxonomies
+		 *
+		 * @return void
+		 */
 		private function register_taxonomies() {
 			$taxonomies = apply_filters( 'rt_framework_taxonomies', $this->taxonomies );
 			foreach ( $taxonomies as $taxonomy => $args ) {
