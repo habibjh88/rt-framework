@@ -111,7 +111,7 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				$container_attr .= ' data-required="' . esc_attr( $field['required'][0] ) . '"';
 				$container_attr .= ' data-required-value="' . esc_attr( $field['required'][1] ) . '"';
 			} else {
-				if ( in_array( $key, $this->conditioinal_fields ) ) {
+				if ( is_array( $this->conditioinal_fields ) && in_array( $key, $this->conditioinal_fields ) ) {
 					$tr_class .= ' has-condition';
 				}
 				$container_attr .= ' class="rt-postmeta-tr ' . $tr_class . '"';
