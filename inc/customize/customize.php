@@ -16,9 +16,9 @@ class Customize {
 	/**
 	 * @var array|mixed
 	 */
-	private static $panels       = [];
-	private static $sections     = [];
-	private static $fields       = [];
+	private static $panels = [];
+	private static $sections = [];
+	private static $fields = [];
 	private static $fields_group = [];
 	protected $defaults;
 	protected static $instance = null;
@@ -29,7 +29,7 @@ class Customize {
 		add_action( 'customize_register', [ $this, 'add_customizer_panels' ] );
 		// Register sections
 		add_action( 'customize_register', [ $this, 'add_customizer_sections' ] );
-		// Register Settings / Controls
+		//Register Settings / Controls
 		add_action( 'customize_register', [ $this, 'add_customizer_controls' ] );
 	}
 
@@ -57,8 +57,6 @@ class Customize {
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/bg-attributes.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/tinymce-control.php';
 		require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-controls.php';
-		// require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/test.php';
-		// require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/custom-controls/typography/typography-customizer.php';
 	}
 
 	/**
@@ -99,6 +97,7 @@ class Customize {
 
 			$wp_customize->add_section( $section['id'], $args );
 		}
+
 	}
 
 	/**

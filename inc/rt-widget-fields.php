@@ -34,21 +34,21 @@ if ( ! class_exists( 'RT_Widget_Fields' ) ) {
 
 		public static function heading( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<h3 style="border-bottom: 1px solid #ddd;" for="<?php echo esc_attr( $id ); ?>"><strong><?php echo esc_html( $label ); ?>:</strong></h3>
+            <h3 style="border-bottom: 1px solid #ddd;" for="<?php echo esc_attr( $id ); ?>"><strong><?php echo esc_html( $label ); ?>:</strong></h3>
 			<?php
 		}
 
 		public static function text( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
-			<input class="widefat" type="text" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
+            <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
+            <input class="widefat" type="text" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
 			<?php
 		}
 
 		public static function url( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
-			<input class="widefat" type="text" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_url( $value ); ?>"/>
+            <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
+            <input class="widefat" type="text" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_url( $value ); ?>"/>
 			<?php
 		}
 
@@ -57,33 +57,33 @@ if ( ! class_exists( 'RT_Widget_Fields' ) ) {
 			$max  = isset( $field['max'] ) ? $field['max'] : '';
 			$step = isset( $field['step'] ) ? $field['step'] : 1;
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
-			<input class="widefat" type="number" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" step="<?php echo esc_attr( $step ); ?>" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
+            <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
+            <input class="widefat" type="number" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" step="<?php echo esc_attr( $step ); ?>" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
 			<?php
 		}
 
 		public static function textarea( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
-			<textarea class="widefat" rows="3" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo esc_textarea( $value ); ?></textarea>
+            <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
+            <textarea class="widefat" rows="3" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo esc_textarea( $value ); ?></textarea>
 			<?php
 		}
 
 		public static function checkbox( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><input class="widefat" type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php echo $value ? ' checked="checked"' : ''; ?> /> <?php echo esc_html( $label ); ?></label>
+            <label for="<?php echo esc_attr( $id ); ?>"><input class="widefat" type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php echo $value ? ' checked="checked"' : ''; ?> /> <?php echo esc_html( $label ); ?></label>
 			<?php
 		}
 
 		public static function select( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
-			<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $id ); ?>">
-				<?php foreach ( $options as $key => $option ) : ?>
+            <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
+            <select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $id ); ?>">
+				<?php foreach ( $options as $key => $option ): ?>
 					<?php $selected = ( $key == $value ) ? ' selected="selected"' : ''; ?>
-					<option value="<?php echo esc_attr( $key ); ?>"<?php echo $selected; ?>><?php echo esc_html( $option ); ?></option>
+                    <option value="<?php echo esc_attr( $key ); ?>"<?php echo $selected; ?>><?php echo esc_html( $option ) ?></option>
 				<?php endforeach; ?>
-			</select>
+            </select>
 			<?php
 		}
 
@@ -112,14 +112,14 @@ if ( ! class_exists( 'RT_Widget_Fields' ) ) {
 
 		public static function multi_select( $id, $name, $value, $label, $options, $field ) {
 			?>
-			<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
+            <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?>:</label>
 			<?php
 			if ( empty( $value ) ) {
 				$value = [];
 			}
 			echo '<select class="rt-multi-select" data-placeholder=" ' . esc_attr__( 'Click here to select options', 'rt-framework' ) . '" multiple="multiple"' .
-				 ' name="' . esc_attr( $name ) . '[]"' .
-				 ' id="' . esc_attr( $id ) . '">';
+			     ' name="' . esc_attr( $name ) . '[]"' .
+			     ' id="' . esc_attr( $id ) . '">';
 			foreach ( $options as $key => $option ) {
 				echo '<option',
 				in_array( $key, $value ) ? ' selected="selected"' : '',
@@ -130,5 +130,6 @@ if ( ! class_exists( 'RT_Widget_Fields' ) ) {
 			}
 			echo '</select>';
 		}
+
 	}
 }

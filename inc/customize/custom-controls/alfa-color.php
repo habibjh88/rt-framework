@@ -30,13 +30,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function enqueue() {
 			wp_enqueue_style( 'rttheme-custom-controls-css', RT_FRAMEWORK_DIR_URL . '/assets/css/customizer.css', [ 'wp-color-picker' ], '1.0', 'all' );
-			wp_enqueue_script(
-				'rttheme-custom-controls-js',
-				RT_FRAMEWORK_DIR_URL . '/assets/js/customizer.js',
-				[ 'jquery', 'wp-color-picker' ],
-				'1.0',
-				true
-			);
+			wp_enqueue_script( 'rttheme-custom-controls-js', RT_FRAMEWORK_DIR_URL . '/assets/js/customizer.js', [ 'jquery', 'wp-color-picker' ], '1.0',
+				true );
 		}
 
 		/**
@@ -44,26 +39,22 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function render_content_old() {
 			?>
-			<div class="toggle-switch-control">
-				<div class="toggle-switch">
-					<input type="checkbox" id="<?php echo esc_attr( $this->id ); ?>"
-						   name="<?php echo esc_attr( $this->id ); ?>" class="toggle-switch-checkbox"
-						   value="<?php echo esc_attr( $this->value() ); ?>" 
-											 <?php
-												$this->link();
-												checked( $this->value() );
-												?>
-							>
-					<label class="toggle-switch-label" for="<?php echo esc_attr( $this->id ); ?>">
-						<span class="toggle-switch-inner"></span>
-						<span class="toggle-switch-switch"></span>
-					</label>
-				</div>
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+            <div class="toggle-switch-control">
+                <div class="toggle-switch">
+                    <input type="checkbox" id="<?php echo esc_attr( $this->id ); ?>"
+                           name="<?php echo esc_attr( $this->id ); ?>" class="toggle-switch-checkbox"
+                           value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link();
+					checked( $this->value() ); ?>>
+                    <label class="toggle-switch-label" for="<?php echo esc_attr( $this->id ); ?>">
+                        <span class="toggle-switch-inner"></span>
+                        <span class="toggle-switch-switch"></span>
+                    </label>
+                </div>
+                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<?php if ( ! empty( $this->description ) ) { ?>
-					<span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+                    <span class="customize-control-description"><?php echo esc_html( $this->description ); ?></span>
 				<?php } ?>
-			</div>
+            </div>
 			<?php
 		}
 
@@ -81,20 +72,20 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$show_opacity = ( false === $this->show_opacity || 'false' === $this->show_opacity ) ? 'false' : 'true';
 
 			?>
-			<label>
-				<?php
-				// Output the label and description if they were passed in.
+            <label>
+				<?php // Output the label and description if they were passed in.
 				if ( isset( $this->label ) && '' !== $this->label ) {
 					echo '<span class="customize-control-title">' . sanitize_text_field( $this->label ) . '</span>';
 				}
 				if ( isset( $this->description ) && '' !== $this->description ) {
 					echo '<span class="description customize-control-description">' . sanitize_text_field( $this->description ) . '</span>';
-				}
-				?>
-			</label>
-			<input class="alpha-color-control" type="text" data-show-opacity="<?php echo esc_attr( $show_opacity ); ?>" data-palette="<?php echo esc_attr( $palette ); ?>"
-				   data-default-color="<?php echo esc_attr( $this->settings['default']->default ); ?>" <?php $this->link(); ?> />
+				} ?>
+            </label>
+            <input class="alpha-color-control" type="text" data-show-opacity="<?php echo esc_attr( $show_opacity ); ?>" data-palette="<?php echo esc_attr( $palette ); ?>"
+                   data-default-color="<?php echo esc_attr( $this->settings['default']->default ); ?>" <?php $this->link(); ?> />
 			<?php
 		}
+
+
 	}
 }

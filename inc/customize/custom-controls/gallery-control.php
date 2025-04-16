@@ -24,8 +24,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		public function __construct( $manager, $id, $args = [] ) {
 			parent::__construct( $manager, $id, $args );
 			// Merge the passed button labels with our default labels
-			$this->button_labels = wp_parse_args(
-				$this->button_labels,
+			$this->button_labels = wp_parse_args( $this->button_labels,
 				[
 					'add' => esc_html__( 'Add', 'rt-framework' ),
 				]
@@ -37,28 +36,28 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			wp_enqueue_style( 'rttheme-custom-controls-css', RT_FRAMEWORK_DIR_URL . '/assets/css/customizer.css', [], '1.0', 'all' );
 		}
 
-		public function render_content() {
-			?>
+		public function render_content() { ?>
 			<?php if ( ! empty( $this->label ) ) { ?>
-				<label>
-					<span class='customize-control-title'><?php echo esc_html( $this->label ); ?></span>
-				</label>
+                <label>
+                    <span class='customize-control-title'><?php echo esc_html( $this->label ); ?></span>
+                </label>
 			<?php } ?>
-			<div>
-				<ul class='images'></ul>
-			</div>
-			<div class='actions'>
-				<a class="button-secondary upload"><?php echo esc_html( $this->button_labels['add'] ); ?></a>
-			</div>
+            <div>
+                <ul class='images'></ul>
+            </div>
+            <div class='actions'>
+                <a class="button-secondary upload"><?php echo esc_html( $this->button_labels['add'] ); ?></a>
+            </div>
 
-			<?php // echo $this->value(); ?>
+			<?php //echo $this->value(); ?>
 
-			<input class="wp-editor-area"
-				   name="<?php echo esc_attr( $this->id ); ?>"
-				   id="<?php echo esc_attr( $this->id ); ?>"
-				   type="text" <?php $this->link(); ?>
-				   value="<?php echo esc_attr( $this->value() ); ?>">
+            <input class="wp-editor-area"
+                   name="<?php echo esc_attr($this->id); ?>"
+                   id="<?php echo esc_attr( $this->id ); ?>"
+                   type="text" <?php $this->link(); ?>
+                   value="<?php echo esc_attr( $this->value() ); ?>">
 			<?php
 		}
+
 	}
 }

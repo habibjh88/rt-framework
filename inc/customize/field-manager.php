@@ -2,6 +2,7 @@
 
 namespace RTFramework;
 
+
 use RTFramework\CustomControl\Customizer_Alfa_Color;
 use RTFramework\CustomControl\Customizer_Custom_Heading;
 use RTFramework\CustomControl\Customizer_Dropdown_Select2_Control;
@@ -26,14 +27,14 @@ class FieldManager {
 	public function __construct( $wp_customize, $fields, $fields_group ) {
 		self::add_customizer_fields( $wp_customize, $fields );
 		self::add_customizer_fields_group( $wp_customize, $fields_group );
-		// add_action( 'customize_preview_init', [ $this, 'rtfm_customizer_live_preview' ] );
+		//add_action( 'customize_preview_init', [ $this, 'newsfit_customizer_live_preview' ] );
 		add_action( 'customize_controls_enqueue_scripts', [ $this, 'customizer_switch_select_control_script' ] );
 	}
 
 
 	public static function customizer_switch_select_control_script() {
-		wp_enqueue_script( 'rtfm-customizer-condition', RT_FRAMEWORK_DIR_URL . '/assets/js/customizer-condition.js', [ 'jquery', 'customize-controls' ], '1.0', true );
-		wp_localize_script( 'rtfm-customizer-condition', 'rtCustomizeObj', self::$conditions );
+		wp_enqueue_script( 'newsfit-customizer-condition', RT_FRAMEWORK_DIR_URL . '/assets/js/customizer-condition.js', [ 'jquery', 'customize-controls' ], '1.0', true );
+		wp_localize_script( 'newsfit-customizer-condition', 'rtCustomizeObj', self::$conditions );
 	}
 
 	public static function add_customizer_fields( $wp_customize, $fields ) {
@@ -62,18 +63,18 @@ class FieldManager {
 		}
 		foreach ( $fields_group as $section_id => $fields ) {
 			foreach ( $fields as $id => $field ) {
-				// Check condition
+				//Check condition
 				if ( ! empty( $field['condition'] ) ) {
 					self::$conditions[ $id ] = $field['condition'];
 				}
 				$field['section'] = $section_id;
 				$field['id']      = $id;
-				// Field generate
+				//Field generate
 				if ( method_exists( __CLASS__, $field['type'] ) ) {
 					self::{$field['type']}( $wp_customize, $field );
 
 				}
-				// Add Edit Link
+				//Add Edit Link
 				if ( ! empty( $field['edit-link'] ) && isset( $wp_customize->selective_refresh ) ) {
 					self::edit_link( $wp_customize, $field );
 				}
@@ -89,7 +90,7 @@ class FieldManager {
 	 *
 	 * @return mixed
 	 */
-	public static function cehck_condition( $control_args, $field ): mixed {
+	public static function cehck_condition( $control_args, $field ) {
 
 		if ( ! empty( $field['condition'] ) ) {
 			$control_args['condition'] = $field['condition'];
@@ -122,6 +123,7 @@ class FieldManager {
 		$control_args = self::cehck_condition( $control_args, $field );
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Custom_Heading( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -206,7 +208,7 @@ class FieldManager {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
-			'sanitize_callback' => 'sanitize_textarea_field',
+			'sanitize_callback' => 'wp_kses_post',
 		];
 		$control_args  = [
 			'type'            => 'textarea',
@@ -294,7 +296,7 @@ class FieldManager {
 				'change'       => esc_html__( 'Change', 'rt-framework' ) . ' ' . $button_label,
 				'default'      => esc_html__( 'Default', 'rt-framework' ) . ' ' . $button_label,
 				'remove'       => esc_html__( 'Remove', 'rt-framework' ) . ' ' . $button_label,
-				'placeholder'  => esc_html__( 'No file selected', 'rt-framework' ),
+				'placeholder'  => esc_html__( "No file selected", 'rt-framework' ),
 				'frame_title'  => esc_html__( 'Select', 'rt-framework' ) . ' ' . $button_label,
 				'frame_button' => esc_html__( 'Choose', 'rt-framework' ) . ' ' . $button_label,
 			],
@@ -340,7 +342,7 @@ class FieldManager {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
-			'sanitize_callback' => 'rttheme_text_sanitization',
+			'sanitize_callback' => 'rttheme_text_sanitization'
 		];
 		$control_args  = [
 			'type'        => 'radio',
@@ -365,13 +367,13 @@ class FieldManager {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
-			'sanitize_callback' => 'absint',
+			'sanitize_callback' => 'absint'
 		];
 		$control_args  = [
 			'label'       => $field['label'] ?? '',
 			'description' => $field['description'] ?? '',
 			'section'     => $field['section'] ?? '',
-			'type'        => 'dropdown-pages',
+			'type'        => 'dropdown-pages'
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( $field['id'], $control_args );
@@ -389,13 +391,13 @@ class FieldManager {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
-			'sanitize_callback' => 'sanitize_hex_color',
+			'sanitize_callback' => 'sanitize_hex_color'
 		];
 		$control_args  = [
 			'label'       => $field['label'] ?? '',
 			'description' => $field['description'] ?? '',
 			'section'     => $field['section'] ?? '',
-			'type'        => 'color',
+			'type'        => 'color'
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( $field['id'], $control_args );
@@ -467,7 +469,7 @@ class FieldManager {
 		$settings_args = [
 			'default'           => $field['default'] ?? '',
 			'transport'         => $field['transport'] ?? 'refresh',
-			'sanitize_callback' => 'rttheme_text_sanitization',
+			'sanitize_callback' => 'rttheme_text_sanitization'
 		];
 		$control_args  = [
 			'label'       => $field['label'] ?? '',
@@ -477,7 +479,7 @@ class FieldManager {
 				'placeholder' => $field['placeholder'] ?? __( 'Please select...', 'rt-framework' ),
 				'multiselect' => $field['multiselect'] ?? false,
 			],
-			'choices'     => $field['choices'] ?? [],
+			'choices'     => $field['choices'] ?? []
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Dropdown_Select2_Control( $wp_customize, $field['id'], $control_args ) );
@@ -505,6 +507,7 @@ class FieldManager {
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Switch_Control( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -528,6 +531,7 @@ class FieldManager {
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_TinyMCE_control( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -544,10 +548,11 @@ class FieldManager {
 			'sanitize_callback' => 'rttheme_switch_sanitization',
 		];
 		$control_args  = [
-			'section' => $field['section'] ?? '',
+			'section' => $field['section'] ?? ''
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Separator_Control( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -571,10 +576,11 @@ class FieldManager {
 			'use_as'        => $field['use_as'] ?? 'repeater',
 			'button_labels' => [
 				'add' => __( 'Add Item', 'rt-framework' ),
-			],
+			]
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Sortable_Repeater_Control( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -597,10 +603,11 @@ class FieldManager {
 			'section'       => $field['section'] ?? '',
 			'button_labels' => [
 				'add' => __( 'Add Gallery', 'rt-framework' ),
-			],
+			]
 		];
 		$wp_customize->add_setting( $field['id'], $settings_args );
 		$wp_customize->add_control( new Customizer_Gallery_Control( $wp_customize, $field['id'], $control_args ) );
+
 	}
 
 	/**
@@ -661,14 +668,12 @@ class FieldManager {
 	 * @return void
 	 */
 	public static function edit_link( $wp_customize, $field ) {
-		$wp_customize->selective_refresh->add_partial(
-			$field['id'],
-			[
-				'selector'            => $field['edit-link'],
-				'container_inclusive' => true,
-				'render_callback'     => '__return_false',
-				'fallback_refresh'    => false,
-			]
-		);
+		$wp_customize->selective_refresh->add_partial( $field['id'], [
+			'selector'            => $field['edit-link'],
+			'container_inclusive' => true,
+			'render_callback'     => '__return_false',
+			'fallback_refresh'    => false,
+		] );
 	}
+
 }

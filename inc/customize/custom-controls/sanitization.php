@@ -102,7 +102,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * URL sanitization
 	 *
-	 * @param string    Input to be sanitized (either a string containing a single url or multiple, separated by commas)
+	 * @param  string    Input to be sanitized (either a string containing a single url or multiple, separated by commas)
 	 *
 	 * @return string    Sanitized input
 	 */
@@ -127,7 +127,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Switch sanitization
 	 *
-	 * @param string        Switch value
+	 * @param  string        Switch value
 	 *
 	 * @return integer    Sanitized value
 	 */
@@ -145,13 +145,13 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Radio Button and Select sanitization
 	 *
-	 * @param string        Radio Button value
+	 * @param  string        Radio Button value
 	 *
 	 * @return integer    Sanitized value
 	 */
 	if ( ! function_exists( 'rttheme_radio_sanitization' ) ) {
 		function rttheme_radio_sanitization( $input, $setting ) {
-			// get the list of possible radio box or select options
+			//get the list of possible radio box or select options
 			$choices = $setting->manager->get_control( $setting->id )->choices;
 
 			if ( array_key_exists( $input, $choices ) ) {
@@ -165,7 +165,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Integer sanitization
 	 *
-	 * @param string        Input value to check
+	 * @param  string        Input value to check
 	 *
 	 * @return integer    Returned integer value
 	 */
@@ -179,7 +179,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Text sanitization
 	 *
-	 * @param string    Input to be sanitized (either a string containing a single string or multiple, separated by commas)
+	 * @param  string    Input to be sanitized (either a string containing a single string or multiple, separated by commas)
 	 *
 	 * @return string    Sanitized input
 	 */
@@ -204,7 +204,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Google Font sanitization
 	 *
-	 * @param string    JSON string to be sanitized
+	 * @param  string    JSON string to be sanitized
 	 *
 	 * @return string    Sanitized input
 	 */
@@ -228,7 +228,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Array sanitization
 	 *
-	 * @param array    Input to be sanitized
+	 * @param  array    Input to be sanitized
 	 *
 	 * @return array    Sanitized input
 	 */
@@ -249,7 +249,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Only allow values between a certain minimum & maxmium range
 	 *
-	 * @param number    Input to be sanitized
+	 * @param  number    Input to be sanitized
 	 *
 	 * @return number    Sanitized input
 	 */
@@ -269,7 +269,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Date Time sanitization
 	 *
-	 * @param string    Date/Time string to be sanitized
+	 * @param  string    Date/Time string to be sanitized
 	 *
 	 * @return string    Sanitized input
 	 */
@@ -292,7 +292,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * Slider sanitization
 	 *
-	 * @param string    Slider value to be sanitized
+	 * @param  string    Slider value to be sanitized
 	 *
 	 * @return string    Sanitized input
 	 */
@@ -313,22 +313,22 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * File Input sanitization
 	 *
-	 * @param string    File Type
+	 * @param  string    File Type
 	 *
 	 * @return string    Mime Type
 	 */
 	function rttheme_sanitize_file( $file, $setting ) {
-		// allowed file types
+		//allowed file types
 		$mimes = [
 			'jpg|jpeg|jpe' => 'image/jpeg',
 			'gif'          => 'image/gif',
 			'png'          => 'image/png',
 		];
 
-		// check file type from file name
+		//check file type from file name
 		$file_ext = wp_check_filetype( $file, $mimes );
 
-		// if file has a valid mime type return it, otherwise return default
+		//if file has a valid mime type return it, otherwise return default
 		return ( $file_ext['ext'] ? $file : $setting->default );
 	}
 }

@@ -14,6 +14,11 @@
     background-color: #FFFFFF;
 }
 
+.customize-control .attachment-media-view .thumbnail,
+.customize-control-header .current .container {
+    max-height: 200px;
+}
+
 .customize-control-title {
     margin-bottom: 6px;
     color: #212121;
@@ -64,7 +69,6 @@
 .customize-control.customize-control-number label {
     max-width: calc(100% - 84px);
     margin: 0;
-    margin-top: 7px;
 }
 
 .customize-control.customize-control-number input[type=number]::-webkit-inner-spin-button,
@@ -76,7 +80,7 @@
 #customize-controls .description {
     color: #6c6c6c;
     order: 99;
-    margin-top: 8px;
+    margin-top: 2px;
 }
 
 .form-wrap p, p.description, p.help, span.description {
@@ -1297,20 +1301,20 @@ Upsell Section
     color: red;
 }
 
-#customize-control-rtfm_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__choice {
+#customize-control-newsfit_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__choice {
     display: block;
     float: none;
     padding: 4px 10px;
     cursor: move;
 }
 
-#customize-control-rtfm_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+#customize-control-newsfit_blog_meta .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
     float: none;
     padding-right: 5px;
 
 }
 
-#customize-control-rtfm_blog_meta .select2-container--default .select2-search--inline .select2-search__field {
+#customize-control-newsfit_blog_meta .select2-container--default .select2-search--inline .select2-search__field {
     width: 100% !important;
     border: 1px solid #ddd;
     padding-left: 5px;
