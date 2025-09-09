@@ -48,8 +48,8 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			}
 			$count = count( $meta );
 
-			echo ! empty( $field['label'] ) ? '<tr><th colspan="2">' . esc_html( $field['label'] ) . ':</th></tr>' : '';
-			echo '<tr><td colspan="2" class="rt-postmeta-repeater-wrap" data-num="' . $count . '" data-fieldname="' . esc_attr( $key ) . '">';
+			echo ! empty( $field['label'] ) ? '<tr class="repeater-field-label"><th colspan="2">' . esc_html( $field['label'] ) . ':</th></tr>' : '';
+			echo '<tr class="repeater-field-items-wrapper"><td colspan="2" class="rt-postmeta-repeater-wrap" data-num="' . $count . '" data-fieldname="' . esc_attr( $key ) . '">';
 
 			// First Hidden Item
 			echo '<table class="rt-postmeta-repeater repeater-init">';
@@ -95,12 +95,26 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 				$desc = '<div class="rt-postmeta-desc">' . wp_kses_post( $field['desc'] ) . '</div>';
 			}
 
+//			$container_attr = '';
+//			if ( ! empty( $field['required'] ) ) {
+//				$container_attr .= ' class="rt-postmeta-dependent"';
+//				$container_attr .= ' data-required="' . esc_attr( $field['required'][0] ) . '"';
+//				$container_attr .= ' data-required-value="' . esc_attr( $field['required'][1] ) . '"';
+//			}
+
 			$container_attr = '';
 			if ( ! empty( $field['required'] ) ) {
 				$container_attr .= ' class="rt-postmeta-dependent"';
-				$container_attr .= ' data-required="' . esc_attr( $field['required'][0] ) . '"';
-				$container_attr .= ' data-required-value="' . esc_attr( $field['required'][1] ) . '"';
+
+				if ( is_array( $field['required'] ) ) {
+					$container_attr .= ' data-required="' . esc_attr( $field['required'][0] ) . '"';
+					$container_attr .= ' data-required-value="' . esc_attr( $field['required'][1] ) . '"';
+				} elseif ( $field['required'] === true ) {
+					// Simple required (no dependent value)
+					$container_attr .= ' data-required="true"';
+				}
 			}
+
 
 			// Display Title
 			if ( $field['type'] == 'header' ) {
@@ -129,49 +143,99 @@ if ( ! class_exists( 'RT_Postmeta_Fields' ) ) {
 			echo '</td></tr>';
 		}
 
+//		public function text( $key, $field, $default, $class ) {
+//			$placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
+//			echo '<input type="text" class="' . esc_attr( $class ) . '" name="' . esc_attr( $key ) . '"' .
+//			     ' id="' . esc_attr( $key ) . '"' .
+//			     ' value="' . esc_attr( $default ) . '"' .
+//			     ' placeholder="' . esc_attr( $placeholder ) . '"' .
+//			     ' />';
+//		}
+
 		public function text( $key, $field, $default, $class ) {
-			echo '<input type="text" class="' . $class . '" name="' . esc_attr( $key ) . '"' .
-				 ' id="' . esc_attr( $key ) . '"' .
-				 ' value="' . esc_attr( $default ) . '' .
-				 '" />';
+			$placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
+			$required    = '';
+
+			if ( ! empty( $field['required'] ) ) {
+				if ( is_bool( $field['required'] ) && $field['required'] === true ) {
+					$required = ' required';
+				} elseif ( is_array( $field['required'] ) ) {
+					// jodi dependent logic hoy, tokhono required dewa thakbe
+					$required = ' required';
+				}
+			}
+
+			echo '<input type="text" class="' . esc_attr( $class ) . '" name="' . esc_attr( $key ) . '"' .
+			     ' id="' . esc_attr( $key ) . '"' .
+			     ' value="' . esc_attr( $default ) . '"' .
+			     ' placeholder="' . esc_attr( $placeholder ) . '"' .
+			     $required .
+			     ' />';
 		}
 
+
+
 		public function number( $key, $field, $default, $class ) {
+			$placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
 			echo '<input type="number" class="' . $class . '" name="' . esc_attr( $key ) . '"' .
 				 ' id="' . esc_attr( $key ) . '"' .
 				 ' value="' . esc_attr( $default ) . '"' .
+			     ' placeholder="' . esc_attr( $placeholder ) . '"' .
 				 ' step="any"' .
 				 ' />';
 		}
 
 		public function textarea( $key, $field, $default, $class ) {
-			echo '<textarea class="' . $class . '" name="' . esc_attr( $key ) . '"' .
-				 ' id="' . esc_attr( $key ) . '"' .
-				 '>' .
-				 esc_textarea( $default ) .
-				 '</textarea>';
+			$placeholder = isset( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '';
+
+			echo '<textarea class="' . esc_attr( $class ) . '" 
+						name="' . esc_attr( $key ) . '" 
+						id="' . esc_attr( $key ) . '" 
+						placeholder="' . $placeholder . '">' .
+						esc_textarea( $default ) .
+				'</textarea>';
 		}
+
 
 		public function textarea_html( $key, $field, $default, $class ) {
-			echo '<textarea class="' . $class . '" name="' . esc_attr( $key ) . '"' .
-				 ' id="' . esc_attr( $key ) . '"' .
-				 '>' .
-				 $default .
-				 '</textarea>';
+			$placeholder = isset( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '';
+
+			echo '<textarea class="' . esc_attr( $class ) . '" 
+						name="' . esc_attr( $key ) . '" 
+						id="' . esc_attr( $key ) . '" 
+						placeholder="' . $placeholder . '">' .
+						$default .
+				'</textarea>';
 		}
 
+
+//		public function select( $key, $field, $default, $class ) {
+//			echo '<select name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" class="' . $class . '">';
+//			foreach ( $field['options'] as $key => $value ) {
+//				echo '<option',
+//				$default == $key ? ' selected="selected"' : '',
+//					' value="' . esc_attr( $key ) . '"' .
+//					'>' .
+//					esc_html( $value ) .
+//					'</option>';
+//			}
+//			echo '</select>';
+//		}
+
 		public function select( $key, $field, $default, $class ) {
-			echo '<select name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" class="' . $class . '">';
-			foreach ( $field['options'] as $key => $value ) {
-				echo '<option',
-				$default == $key ? ' selected="selected"' : '',
-					' value="' . esc_attr( $key ) . '"' .
-					'>' .
-					esc_html( $value ) .
-					'</option>';
+			$required = ! empty( $field['required'] ) ? ' required' : '';
+
+			echo '<select name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" class="' . esc_attr( $class ) . '"' . $required . '>';
+			foreach ( $field['options'] as $option_key => $value ) {
+				echo '<option' .
+				     ( $default == $option_key ? ' selected="selected"' : '' ) .
+				     ' value="' . esc_attr( $option_key ) . '">' .
+				     esc_html( $value ) .
+				     '</option>';
 			}
 			echo '</select>';
 		}
+
 
 
 		public function icon_select( $key, $field, $default, $class ) {

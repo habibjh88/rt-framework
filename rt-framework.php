@@ -3,7 +3,7 @@
 Plugin Name: RT Framework
 Plugin URI: http://radiustheme.com
 Description: Theme Framework by RadiusTheme
-Version: 3.0.3
+Version: 3.0.4
 Author: RadiusTheme
 Author URI: http://radiustheme.com
 */
@@ -16,7 +16,7 @@ if ( defined( 'RT_FRAMEWORK_VERSION' ) ) {
 	exit;
 }
 
-define( 'RT_FRAMEWORK_VERSION', '3.0.3' );
+define( 'RT_FRAMEWORK_VERSION', '3.0.4' );
 define( 'RT_FRAMEWORK_BASE_DIR', trailingslashit( dirname( __FILE__ ) ) );
 define( 'RT_FRAMEWORK_DIR_URL', plugins_url( '', __FILE__ ) );
 
@@ -37,4 +37,10 @@ function rt_fw_load_files() {
 	//customize
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/customize.php';
 	require_once RT_FRAMEWORK_BASE_DIR . 'inc/customize/field-manager.php';
+
+
+	//Sample Fields
+	if ( is_admin() ) {
+		require_once RT_FRAMEWORK_BASE_DIR . 'sample-fields/PostMetaController.php';
+	}
 }

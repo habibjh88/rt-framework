@@ -335,4 +335,25 @@
     });
 
 
+    jQuery(document).ready(function($){
+        $('#post').on('submit', function(e){
+            let error = false;
+
+            $('input[required], select[required], textarea[required]').each(function(){
+                if( $(this).val().trim() === '' ){
+                    alert('Required field missing: ' + $(this).attr('name'));
+                    error = true;
+                    return false; // break loop
+                }
+            });
+
+            if(error){
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+
+
+
 }(jQuery));

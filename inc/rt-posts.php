@@ -14,7 +14,7 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 		private $taxonomies = [];
 
 		private function __construct() {
-			add_action( 'init', [ $this, 'initialize' ], 9999 );
+			add_action( 'init', [ $this, 'initialize' ], 5000 );
 
 		}
 
@@ -67,6 +67,7 @@ if ( ! class_exists( 'RT_Posts' ) ) {
 					'hierarchical'       => $post_type['hierarchical'] ?? false,
 					'menu_position'      => $post_type['menu_position'],
 					'supports'           => $post_type['supports'],
+					'taxonomies'         => $post_type['taxonomies'],
 					'show_in_rest'       => $post_type['show_in_rest'] ?? true,
 				];
 
